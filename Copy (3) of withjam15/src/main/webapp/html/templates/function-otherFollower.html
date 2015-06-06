@@ -1,0 +1,160 @@
+<br>
+<br>
+친구의 친구다 
+
+<!-- {{#each friends}}
+<div class='friend-search-list' data-searchInfo='{{UNAME}}' style="margin-top: 5px;">
+    
+	<div
+		style="width: 35px; height: 35px; float: left; float: left; ">
+		<img id="profileImg" class="profileImg" src="../img/temp.jpg">
+		<div>
+			<button class='btnFollow {{followYN}}' data-fUid='{{fUid}}'
+				id='btn-follow'></button>
+		</div>	
+		
+	</div>
+
+	<div style="border: 1px solid gray; float: left; width: 80%;height:52px; overflow: hidden;">
+	
+hoverevent div
+        <div class='hover-info {{uname}}'
+             style="width:300px; border: solid gray 1px;position: absolute; left: 155px;
+             z-index: 10000; background: white; word-wrap:break-word;">
+             <label>이름 : {{uname}}</label><br>
+             <label>comment : {{comment}}</label><br>
+             <label>추천음원&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a>음원보러가기</a></label>
+         </div>
+         
+		<label>이름 : <a class='uname' data-fUid='{{fUid}}' data-uname='{{uname}}'>{{uname}}</a>&nbsp&nbsp&nbsp음원수 : {{cnt}}
+		</label><br>
+		
+		<div>음원수 : {{CNT}}</div>
+		<label>코멘트 : {{comment}}</label>
+		
+	</div>
+
+</div>
+
+
+{{/each}} -->
+
+<script>
+    $('.hover-info').hide();
+	$(".btnFollow").click(
+			function() {
+				var btnFollow = $(this);
+				$.getJSON('/withjam15/json/auth/loginUser.do', function(data) {
+					if (data.status == 'fail') {
+						console.log('loginUser fail..');
+					} else {
+						var loginUser = data.loginUser;
+						
+						if(btnFollow.attr('class') =='btnFollow follow'){
+						
+						console.log(loginUser);
+
+						$.getJSON('../json/friend/FriendDelete.do?uid='
+								+ loginUser.uid + '&fUid='
+								+ btnFollow.attr('data-fUid'), function(data) {
+							if (data.status == 'success') {
+								console.log('delete success..');
+								btnFollow.removeClass('follow');
+								btnFollow.addClass('unfollow');
+								/* MyInfo(); */
+							} else {
+								console.log('delete fail..');
+							}
+						});
+						}else{
+							$.getJSON('../json/friend/FriendAdd.do?uid='
+									+ loginUser.uid + '&fUid='
+									+ btnFollow.attr('data-fUid'), function(data) {
+								if (data.status == 'success') {
+									console.log('add success..');
+									btnFollow.removeClass('unfollow');
+									btnFollow.addClass('follow');
+									/* MyInfo(); */
+								} else {
+									console.log('add fail..');
+								}
+							});	
+						}
+					}
+				});
+			});
+	
+	
+	
+	function OtherFollowerList(fUid) {
+
+		$('.follower').show();
+		
+		$.getJSON('/withjam15/json/auth/loginUser.do', function(data) {
+			if (data.status == 'fail') {
+				console.log('loginUser fail..');
+			} else {
+				var loginUser = data.loginUser;
+
+		$.getJSON('../json/friend/otherFollowerList.do?uid=' + loginUser.uid + '&fUid=' + fUid, function(data) {
+			console.log(data.friends);
+			require([ 'text!templates/otherFollower.html' ], function(html) {
+				var template = Handlebars.compile(html);
+				$('.follower').html(template(data));
+			});
+		});
+		}
+		});
+	} 
+	
+	
+	
+	
+	function OtherInfo(uid) {
+
+		$.getJSON('../json/friend/myInfo.do?uid=' + uid, function(data) {
+			console.log(data.myInfo);
+			console.log(data.myBandList);
+			require([ 'text!templates/otherInfo.html' ], function(html) {
+				var template = Handlebars.compile(html);
+				$('#myInfo').html(template(data));
+			});
+		});
+	}
+	
+	$('.follower-photo').click(function() {
+		console.log($(this).attr('data-fUid'));
+		OtherInfo($(this).attr('data-fUid'));
+		OtherFollowerList($(this).attr('data-fUid')) ;
+	});
+	
+	$('.uname').click(function() {
+		console.log($(this).attr('data-fUid'));
+		OtherInfo($(this).attr('data-fUid'));
+		OtherFollowList($(this).attr('data-fUid'));
+	});
+	
+	$('.uname').mouseenter(function(){
+		/* $('.hover-info').css('display',''); */
+		var uname = $(this).attr('data-uname');
+		console.log(uname+'...mouseenter');
+		/* $('.hover-info').show(); */
+		$('.'+uname).show();
+	});
+	
+	$('.hover-info').mouseenter(function(){
+		$(this).show();
+	});
+	
+	$('.hover-info').mouseleave(function(){
+		$(this).hide();
+	});
+	
+	$('.uname').mouseleave(function(){
+		var uname = $(this).attr('data-uname');
+		console.log(uname+'...mouseleave');
+		$('.'+uname).hide();
+	});
+	
+	
+</script>

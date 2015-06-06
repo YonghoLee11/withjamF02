@@ -1,0 +1,199 @@
+
+<style>
+#contentProfile {
+	width: 70px;
+	height: 70px;
+}
+
+.replyImg {
+	width: 35px;
+	height: 35px;
+}
+
+#buttonPlay {
+	width: 40px;
+	height: 40px;
+}
+
+.c_td01 {
+	width: 15%;
+}
+
+.c_td02 {
+	width: 10%;
+}
+
+.c_td03 {
+	width: 50%;
+}
+
+.c_td04 {
+	width: 25%;
+}
+
+#contentTable {
+	width: 100%;
+	height: 100px;
+	text-align: center;
+}
+
+#deleteImg {
+	width: 12px;
+	height: 12px;
+}
+
+.content_Icon {
+	width: 15px;
+	height: 15px;
+}
+
+textarea {
+	width: 99%;
+	overflow: visible;
+	/* border: 2px solid #765942; */
+	border-radius: 10px;
+	/* height: 60px; */
+	/* width: 230px; */
+}
+
+#contentTitle {
+	font-size: 20px;
+}
+
+.contentDate {
+	color: #333;
+}
+
+.replyFontSize {
+	font-size: 13px;
+}
+
+.testBorder {
+	border: 1px solid black;
+}
+</style>
+
+
+{{#each boardList}} 
+<div style="padding: 10px;">
+
+	<div id="titleSide">
+		<table id="contentTable"  style="height: 90px;">
+			<tr>
+				<td rowspan="3" class="c_td01"><img id="contentProfile"
+					src="../fileupload/{{uphoto}}"></td>
+				<td colspan="5" height="5px;"></td>
+			</tr>
+			<tr>
+
+				<td class="c_td02"><img id="buttonPlay" name={{bno}}
+					src="../img/buttonPlay.png"  onclick="test(this); "></td> <!-- 이 버튼에 클릭 이벤트.. -->
+
+				<td class="c_td03" colspan="3" style="text-align: left;"><label
+					id="contentTitle">{{title}}</label></td>
+
+				<td class="c_td04" style="text-align: right;"><label
+					class="contentDate" style="font-size: 12px;">{{bdate}}</label><br>
+					<label id="contentWriter" style="font-size: 15px;">{{uname}}</label></td>
+
+			</tr>
+			<tr>
+				<td></td>
+				
+				<td colspan="4" align="right"> | 
+				<!-- 플레이수 -->
+				<img class="content_Icon" src="../img/icon_play.png"> : <label>{{hits}}</label> | 
+				<!-- 악기 -->
+				<!-- <img class="content_Icon" src="../img/icon_electricguitar.png"> {{instNo}}| --> 
+				<!-- 장르 -->
+				<!-- <label>{{genreNo}}</label> | -->
+				<!-- 추천수 -->
+				<img class="content_Icon" src="../img/icon_good.png"> : <label></label> |
+				<!-- 음원리플 겟수 -->
+				<img class="content_Icon" src="../img/icon_reply.png"> : <label>{{cnt}}</label> |
+
+				</td>
+			</tr>
+		</table>
+	</div>
+
+	<hr width="85%;" align="right">
+	<!-- <div id="contentSide" style="text-align: right; padding: 5px;">
+			<textarea onkeyup="resize(this)" style="width: 85%" >
+		<textarea style="width: 85%;" rows="5">{{content}}</textarea>
+	</div> -->
+
+
+	<div id="replySide" align="right">
+
+		<hr width="85%;" align="right">
+
+		
+			<!-- ---------------------------------------- -->
+
+			<table id="replyTable" style="width: 85%;">
+
+
+			</table>
+
+			
+
+			<table style="width: 85%;">
+
+				<tr>
+					<td colspan="4">
+						<input type="text" style="width: 99%;">
+					</td>
+					<td width="50px;">
+						<button>등록</button>
+					</td>
+				</tr>
+			</table>
+		
+		<!-- ---------------------------------------- -->
+	</div>
+	<hr>
+	<br>
+</div>
+{{/each}}
+
+
+
+
+<script>
+
+
+$.getJSON('../json/reply/ReplyList.do?bno=' + {{bno}}, function(data) {
+			
+	console.log(data);
+	/* 
+	console.log(data.soundList.length);
+ */
+	require([ 'text!templates/innerContent_reply.html' ], function(
+			html) {
+		var template = Handlebars.compile(html);
+		$('#replyTable').html(template(data));
+	});
+});
+
+
+
+</script>
+
+{{/each}}
+
+<script>
+
+
+function test(e){
+	$.getJSON('../json/reply/ReplyList.do?bno=' + e.name, function(data) {
+		console.log(data);
+		require([ 'text!templates/playList.html' ], function(
+				html) {
+			var template = Handlebars.compile(html);
+			$('#playerSide').html(template(data));
+		});
+	});
+}
+
+</script>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- <sql> 태그 사용하기 => 자주 사용되는 SQL문은 별도로 정의해두고 포함한다. -->
+
+<mapper namespace="withjam.dao.MemberDao">
+
+
+	<!-- 객체의 컬럼과 프로퍼티를 연결한다. -->
+	<resultMap type="Member" id="memberMap">
+		<!-- PK 컬럼은 id 태그를 사용하여 지정한다. -->
+		<!-- <result column="NAME" property="test01"/> -->
+		<result column="UID" property="uid" />
+		<result column="EMAIL" property="email" />
+		<result column="PWD" property="pwd" />
+		<result column="UNAME" property="uname" />
+		<result column="UPHOTO" property="uphoto" />
+		<result column="COMMENT" property="comment" />
+		<result column="USCORE" property="uscore" />
+		<result column="MDATE" property="mdate" />
+		<result column="FOLLOWER_CNT" property="followerCnt" />
+		<result column="FOLLOW_CNT" property="followCnt" />
+		<result column="BOARD_CNT" property="boardCnt" />
+		<result column="CNT" property="cnt" />
+		<result column="GNAME" property="gname" />
+		<result column="INAME" property="iname" />
+	</resultMap>
+
+	<insert id="insert" parameterType="Member">
+		INSERT INTO MEMBERS(EMAIL,PWD,UNAME,UPHOTO,COMMENT,USCORE,MDATE)
+		VALUES (#{email},#{pwd},#{uname},'..','...',0,SYSDATE())
+	</insert>
+
+	<select id="existUser" parameterType="map" resultMap="memberMap">
+		SELECT *
+		FROM MEMBERS
+		WHERE EMAIL=#{email} AND PWD=#{pwd}
+	</select>
+
+	<select id="selectOne" parameterType="int" resultMap="memberMap">
+		SELECT *
+		FROM MEMBERS
+		WHERE UID=#{uid}
+	</select>
+
+	<select id="myInfo" parameterType="int" resultMap="memberMap">
+		SELECT
+		A.UID
+		,A.EMAIL
+		,A.UNAME
+		,A.UPHOTO
+		,A.COMMENT
+		,A.MDATE
+		,IFNULL(B.CNT,'0') BOARD_CNT
+		,IFNULL(C.CNT,'0') FOLLOW_CNT
+		,IFNULL(D.CNT,'0') FOLLOWER_CNT
+        ,E.GNAME
+        ,F.INAME
+		FROM
+		(SELECT A.* FROM MEMBERS A WHERE A.UID=#{uid}) A
+		LEFT OUTER JOIN
+		(SELECT UID,COUNT(*) CNT FROM BOARD A WHERE A.UID=#{uid} GROUP BY A.UID) B
+		ON A.UID = B.UID
+		LEFT OUTER JOIN
+		(SELECT UID,COUNT(*) CNT FROM FRIEND A WHERE A.UID=#{uid} GROUP BY A.UID) C
+		ON A.UID = C.UID
+		LEFT OUTER JOIN
+		(SELECT F_UID UID,COUNT(*) CNT FROM FRIEND A WHERE A.F_UID=#{uid} GROUP BY
+		A.F_UID) D
+		ON A.UID = D.UID
+        LEFT OUTER JOIN GENRE E
+		ON A.GENRE_NO = E.GENRENO
+        LEFT OUTER JOIN INSTRUMENT F
+		ON A.INSTRUMENT_NO = F.INSTNO;
+	</select>
+
+
+    <!-- updateMyInfo -->
+    
+    <!-- uphoto  : $('#uphoto').val(),
+          comment : $('#comment').val(),
+          instrumentNo : $('#instrumentNo').val(),
+          genreNo : $('#genreNo').val(), -->
+    
+    <update id='updateMyInfo'>
+    UPDATE MEMBERS SET COMMENT=#{comment}  ,UPHOTO = #{uphoto}  where UID=#{uid}
+    </update>
+    
+</mapper>

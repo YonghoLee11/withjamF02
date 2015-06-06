@@ -1,0 +1,224 @@
+<style>
+.for-headerInfo{
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.for-headerInfo:HOVER {
+	color: white !important;
+}
+
+</style>
+
+
+<!-- 왼쪽 아이콘  -->
+
+
+<div id="header-L">
+	<a href="mainFrame.html" style="display: table-cell;margin-right:10px;width:150px;float: left;">
+	   <img id="withjam_main" src="../img/with-wwww.png" ></a>
+	   
+<!-- <div style='width: 10%;height: 100%;float: left;color: silver;margin-top: 7px;' class="for-headerInfo">home
+</div>  -->
+
+<div style='width: 10%;height: 100%;float: left;color: silver;margin-top: 8px;border-right: ' class='for-headerInfo'>collection
+</div> 
+
+<div style='width: 10%;height: 100%;float: left;color: silver;margin-top: 8px;' class='for-headerInfo for-upload'>upload
+</div> 
+
+<!-- 서치 -->
+<div id="search-div" >		
+<input class='for-allSearch' type="search" placeholder="Search" autocomplete="off" >
+<!-- <button id="searchbtn" class="headerSearch__submit submit"  type="submit" >Search</button> -->
+</div>
+
+</div>
+
+
+
+
+<!-- 오른쪽 아이콘부분 -->
+<div class="header-R right-icon">
+
+
+<div class='icon-box'>
+    <img id="band1png" class="png" src="../img/make-band-w.png" width="30" height="30" title="밴드만들기"></div>
+				<div class="icon-box">
+	<img id="msgpng" class="png" src="../img/msg-w.png" width="30" height="30" title="쪽지"></div>
+				<div class="icon-box">
+    <img id="settingpng" class="png" src="../img/setting-w.png" width="30" height="30" title="설정"></div>
+				<div class="icon-box">
+	<img id="logoutpng" class="png" src="../img/logout-w.png" width="30" height="30" title="로그아웃"></div>
+</div>
+
+
+<script>
+
+
+$(".for-allSearch").keyup(function(){
+	  console.log('test');
+	  
+	  console.log($(".for-allSearch").val());
+	  
+	  $('.search-key-word').html($(".for-allSearch").val());
+	  
+	 $(".setting-this").hide();
+	$(".band-this").hide();
+	 $(".band1-this").hide();
+	$(".msg-this").hide();
+	
+	 $(".search-this").show();
+	
+     /* $('.search-this').load('allsearch.html');   */
+	 $.get("http://localhost:3000/search?"   /* 192.168.0.5 */
+		                +"keyWord=" +$(".for-allSearch").val()
+						+"&searchMember=" +$(".for-allSearch").val()
+						+"&searchBoard=" +$(".for-allSearch").val()
+						+"&searchBand="  +$(".for-allSearch").val(),
+						function(data) {
+							if (data.length != 0) {
+								
+								console.log(data);
+								
+								var search = {
+										searchList :data
+								}
+								
+								
+					
+									require([ 'text!templates/take1-allsearch.html' ], function(
+											html) {
+										var template = Handlebars.compile(html);
+										$('.for-search-this').html(template(search));
+										
+									}); 
+								
+								
+							}else{
+								console.log('search fail..');
+								require([ 'text!templates/take1-allsearch.html' ], function(
+										html) {
+									var template = Handlebars.compile(html);
+									$('.for-search-this').html(template(search));
+								}); 
+							}
+						});	
+		
+		
+		if($(".for-allSearch").val()==''){
+	    	$(".search-this").hide();
+	    }
+					  		
+});
+  
+
+	<!--밴드만들기 아이콘 클릭했을 때 -->
+  $("#band1png").click(function(){
+  	$(".search-this").hide();
+  	 $(".setting-this").hide();
+  	 $(".msg-this").hide();
+  	 /* $(".band-this").hide(); */
+    $(".band1-this").toggle();
+    $('.band1-this').load('make-band.html');
+  });
+
+	<!--쪽지 아이콘 클릭했을 때 -->
+  $("#msgpng").click(function(){
+  	$(".search-this").hide();
+  	 $(".setting-this").hide();
+   	/*  $(".band-this").hide(); */
+   	 $(".band1-this").hide();
+    $(".msg-this").toggle();
+    TakeMsgBox();
+   /*  $('.msg-this').load('msgbox_left.html'); */
+  });
+  
+
+	<!--설정 아이콘 클릭했을 때 -->
+  $("#settingpng").click(function(){
+  	$(".search-this").hide();
+  	$(".band-this").hide();
+  	$(".band1-this").hide();
+  	$(".msg-this").hide();
+    $(".setting-this").toggle();
+    $('.setting-this').load('setting_left.html');
+    
+    
+  });
+  
+
+  
+
+  <!--바탕 클릭했을 때 꺼짐 -->
+  $(".divHeight").click(function(){
+  	$(".search-this").hide();
+     $(".setting-this").hide();
+  	/*  $(".band-this").hide(); */
+  	 $(".msg-this").hide();
+  	 $(".band1-this").hide();
+  });
+  
+
+  $('#logoutpng').click(function(){
+	  $.getJSON('/withjam15/json/auth/logout.do', function(data){
+	    location.href = '/withjam15/auth/LoginPage.html'; 
+	  }); 
+	    console.log('logout test');
+	});
+
+	
+	$('.BoardSearch').keyup(function(key){
+		var boardSearch = null;
+		
+		console.log($('.BoardSearch').val());
+		
+		if($('.BoardSearch').val()==''){
+			boardSearch = 'jfadfldjfhafkdsfhriluhfhdh';
+		}else{
+			boardSearch = $('.BoardSearch').val();
+		}
+		
+		
+		       $.get("http://localhost:3000/searchBoard?uname="+boardSearch
+		    		   +"&title="+boardSearch,
+						function(data) {
+							if (data.length != 0) {
+								
+								console.log(data);
+								
+								var searchBoard = {
+										board :data
+								}
+								console.log(searchBoard);
+													
+									require([ 'text!templates/searchBoardList.html' ], function(
+											html) {
+										var template = Handlebars.compile(html);
+										$('.search-board-list').html(template(searchBoard));
+									}); 
+								
+								
+							}else{
+								console.log('search fail..');
+								require([ 'text!templates/searchBoardList.html' ], function(
+										html) {
+									var template = Handlebars.compile(html);
+									$('.search-board-list').html(template(data));
+								}); 
+							}
+						});
+		       
+		       if (key.keyCode == 13) {
+					/* console.log($(this).val()); */
+					SearchInsert($(this).val());
+			    }
+	});
+	
+	$('.for-upload').click(function(){
+		location.href = '../html/upload.html';
+	});
+	
+
+	<!--글 아이콘 클릭했을 때 -->
+	</script>

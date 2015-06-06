@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="withjam.dao.MessageDao">
+
+	<resultMap type="Message" id="messageMap">
+		<result column="UID" property="uid" />
+		<result column="F_UID" property="fUid" />
+		<result column="MSGNO" property="msgNo" />
+		<result column="TITLE" property="title" />
+		<result column="CONTENT" property="content" />
+		<result column="SENDTIME" property="sendTime" />
+		<result column="CONFIRM" property="confirm" />
+		<result column="UNAME" property="uname" />
+		<result column="F_UNAME" property="fUname" />
+		<result column="MY_CONFIRM" property="myConfirm" />
+		<result column="CNT" property="cnt" />
+	</resultMap>
+
+
+	<select id='sendMsgBox' parameterType="Message" resultMap="messageMap">
+		SELECT
+		A.MSGNO
+		,A.UID
+		,A.F_UID
+		,A.TITLE
+		,A.CONTENT
+		,A.SENDTIME
+		,B.UNAME
+		,C.UNAME F_UNAME
+		FROM MESSAGE A
+		,MEMBERS B
+		,MEMBERS C
+		WHERE A.UID=#{uid}
+		AND A.MY_CONFIRM IS NULL
+		AND A.UID=B.UID
+		AND A.F_UID=C.UID
+	</select>
+
+	<!-- mySendMsgDel -->
+
+	<delete id='mySendMsgDel' parameterType="int">
+		DELETE FROM MESSAGE
+		WHERE MSGNO=#{msgNo}
+	</delete>
+
+	<update id="mySendMsgDelCheck">
+		UPDATE MESSAGE SET MY_CONFIRM=#{checkVal} WHERE
+		MSGNO=#{msgNo}
+	</update>
+
+
+	<select id="takeMsgBox" parameterType="Message" resultMap="messageMap">
+		SELECT
+		A.MSGNO
+		,A.UID
+		,A.F_UID
+		,A.TITLE
+		,A.CONTENT
+		,A.SENDTIME
+		,B.UNAME
+		F_UNAME
+		,C.UNAME 
+		,A.CONFIRM
+		FROM MESSAGE A
+		,MEMBERS B
+		,MEMBERS C
+		WHERE A.F_UID=#{uid}
+		AND A.F_CONFIRM IS
+		NULL
+		AND A.UID=B.UID
+		AND A.F_UID=C.UID
+	</select>
+	<update id="myTakeMsgDelCheck">
+		UPDATE MESSAGE SET F_CONFIRM=#{checkVal} WHERE
+		MSGNO=#{msgNo}
+	</update>
+
+	<select id='takeMsgSelectOne' parameterType="Message" resultMap="messageMap">
+		SELECT
+		A.MSGNO
+		,A.UID
+		,A.F_UID
+		,A.TITLE
+		,A.CONTENT
+		,A.SENDTIME
+		,B.UNAME
+		FROM
+		MESSAGE A
+		,MEMBERS B
+		WHERE MSGNO=#{msgNo}
+		AND A.UID=B.UID
+	</select>
+
+
+	<select id='sendMsgSelectOne' parameterType="Message" resultMap="messageMap">
+		SELECT
+		A.MSGNO
+		,A.UID
+		,A.F_UID
+		,A.TITLE
+		,A.CONTENT
+		,A.SENDTIME
+		,B.UNAME
+		FROM
+		MESSAGE A
+		,MEMBERS B
+		WHERE MSGNO=#{msgNo}
+		AND A.F_UID=B.UID;
+	</select>
+
+	<!-- msgConfirmCnt -->
+
+	<select id='msgConfirmCnt' parameterType="int" resultMap="messageMap">
+		SELECT
+		count(*) CNT
+		FROM MESSAGE
+		WHERE F_UID=#{uid}
+		AND F_CONFIRM IS NULL
+		AND CONFIRM = 'none'
+	</select>
+	
+	
+	<update id='takeMsgConfirmUpdate' parameterType="Message">
+	    UPDATE MESSAGE  SET CONFIRM='on' WHERE MSGNO=#{msgNo}
+	</update>
+	
+	<!-- sendMsgInsert -->
+    
+    <insert id="sendMsgInsert" parameterType="Message">
+    INSERT INTO MESSAGE(UID,F_UID,TITLE,CONTENT,SENDTIME,CONFIRM) VALUES(#{uid},#{fUid},#{title},#{content},SYSDATE(),'none')
+    </insert> 
+</mapper>

@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- 로그인 폼 -->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+<link href="http://fonts.googleapis.com/css?family=Audiowide"
+	rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300'
+	rel='stylesheet' type='text/css'>
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <link rel="stylesheet" type="text/css" href="../css/LoginStyle.css" />
+		<script src="../js/cufon-yui.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			//Cufon.replace('h1',{ textShadow: '1px 1px #fff'});
+			Cufon.replace('h2',{ textShadow: '1px 1px #fff'});
+			Cufon.replace('h3',{ textShadow: '1px 1px #000'});
+			Cufon.replace('.back');
+		</script>
+
+
+
+<link rel='stylesheet' href='../css/bootstrap.min.css'>
+<link rel='stylesheet' href='../css/bootstrap-theme.min.css'>
+<link rel='stylesheet' href='../css/bootstrap-theme.css.map'>
+<script src='../js/jquery-1.11.1.js'></script>
+<!-- <script type="text/javascript" src="../js/jquery.min.js"></script> -->
+<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+
+<!-- email 유효성 검사 플러그인 --> 
+<script type="text/javascript" src="../js/jquery.validate.js"></script>
+
+
+<!-- <script type="text/javascript" src="../js/jquery.validate.password.js"></script> -->
+
+<meta charset="UTF-8">
+
+<title>Insert title here</title>
+<style>
+video#bgvid {
+	position: fixed; right: 0; bottom: 0;
+	min-width: 100%; min-height: 100%;
+	width: auto; height: auto; z-index: -100;
+	background-size: cover;
+}
+
+
+
+body{
+  font-family: 'Open Sans', sans-serif;
+  background:#ddd;
+  color:white;
+  text-align:center;
+}
+
+h2{
+font-family: 'Audiowide';
+  font-size:2em;
+}
+h1{
+  font-family: 'Audiowide';
+  font-size:8em;
+  /* 
+  position:absolute; top:100px; bottom:0; left:15%; right:0;
+	 height:340px; width:70%;  
+	 */
+	  top:100px; 
+	 height:150px; width:100%;  
+  
+  
+  -webkit-animation: floating-text 2s ease alternate infinite;
+     -moz-animation: floating-text 2s ease alternate infinite;
+      -ms-animation: floating-text 2s ease alternate infinite;
+       -o-animation: floating-text 2s ease alternate infinite;
+          animation: floating-text 2s ease alternate infinite;
+}
+
+.loginForm{
+ 
+  /* position:absolute; top:50px; bottom:0; left:0; right:0; */
+	margin: auto; 
+	top: 45%;
+/* 	
+	 height:150px; 
+	width:30%;  
+  border: 1px solid black; */
+  /* background-color: #fff; */
+ /*  font-weight:300; */
+}
+
+a{
+  text-decoration:none;
+  color:#fff;
+}
+
+@-webkit-keyframes floating-text {
+  0% {  
+    -webkit-transform: translateY(.1em);
+    text-shadow:0 0 .5em rgba(255,255,255,.4),
+      0 0 .2em rgba(0,0,0,.3),
+      0 .3em .2em rgba(0,0,0,.3);
+
+  }
+  100% {
+    text-shadow:0 0 .5em rgba(255,255,255,.4),
+      0 0 .2em rgba(0,0,0,.3),
+      0 .5em .5em rgba(0,0,0,.3);
+  }
+}
+@-moz-keyframes floating-text {
+  0% {  
+    -moz-transform: translateY(.1em);
+    text-shadow:0 0 .5em rgba(255,255,255,.4),
+      0 0 .2em rgba(0,0,0,.3),
+      0 .3em .2em rgba(0,0,0,.3);
+
+  }
+  100% {
+    text-shadow:0 0 .5em rgba(255,255,255,.4),
+      0 0 .2em rgba(0,0,0,.3),
+      0 .5em .5em rgba(0,0,0,.3);
+  }
+}
+@-ms-keyframes floating-text {
+  0% {  
+    -ms-transform: translateY(.1em);
+    text-shadow:0 0 .5em rgba(255,255,255,.4),
+      0 0 .2em rgba(0,0,0,.3),
+      0 .3em .2em rgba(0,0,0,.3);
+
+  }
+  100% {
+    text-shadow:0 0 .5em rgba(255,255,255,.4),
+      0 0 .2em rgba(0,0,0,.3),
+      0 .5em .5em rgba(0,0,0,.3);
+  }
+}
+@-o-keyframes floating-text {
+  0% {  
+    -o-transform: translateY(.1em);
+    text-shadow:0 0 .5em rgba(255,255,255,.4),
+      0 0 .2em rgba(0,0,0,.3),
+      0 .3em .2em rgba(0,0,0,.3);
+
+  }
+  100% {
+    text-shadow:0 0 .5em rgba(255,255,255,.4),
+      0 0 .2em rgba(0,0,0,.3),
+      0 .5em .5em rgba(0,0,0,.3);
+  }
+}
+@keyframes floating-text {
+  0% {  
+    transform: translateY(.1em);
+    text-shadow:0 0 .5em rgba(255,255,255,.4),
+      0 0 .2em rgba(0,0,0,.3),
+      0 .3em .2em rgba(0,0,0,.3);
+
+  }
+  100% {
+    text-shadow:0 0 .5em rgba(255,255,255,.4),
+      0 0 .2em rgba(0,0,0,.3),
+      0 .5em .5em rgba(0,0,0,.3);
+  }
+}
+
+
+
+/* 로그인 폼 -----------------------------------------------------*/
+
+@import "http://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css";
+
+
+.login {
+  position: relative;
+  
+  padding: 15px 15px 15px;
+  width: 310px;
+  
+  border-radius: 5px;
+  -webkit-box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.login:before {
+  content: '';
+  position: absolute;
+  /* top: -8px;
+  right: -8px;
+  bottom: -8px;
+  left: -8px;
+  z-index: -1; */
+  background: rgba(5, 5, 5, 0.9);
+  border-radius: 4px;
+}
+
+.login h1 {
+  margin: -20px -20px 21px;
+  line-height: 40px;
+  font-size: 15px;
+  font-weight: bold;
+  color: #555;
+  text-align: center;
+  text-shadow: 0 1px white;
+  background: #f3f3f3;
+  border-bottom: 1px solid #cfcfcf;
+  border-radius: 3px 3px 0 0;
+  background-image: -webkit-linear-gradient(top, whiteffd, #eef2f5);
+  background-image: -moz-linear-gradient(top, whiteffd, #eef2f5);
+  background-image: -o-linear-gradient(top, whiteffd, #eef2f5);
+  background-image: linear-gradient(to bottom, whiteffd, #eef2f5);
+  -webkit-box-shadow: 0 1px whitesmoke;
+  box-shadow: 0 1px whitesmoke;
+}
+
+.login p {
+  margin: 20px 0 0;
+}
+
+.login p:first-child {
+  margin-top: 0;
+}
+
+.login input[type=text], .login input[type=password] {
+  width: 278px;
+  
+}
+
+.login p.remember_me {
+  float: left;
+  line-height: 31px;
+}
+
+.login p.remember_me label {
+  font-size: 12px;
+  color: #777;
+  cursor: pointer;
+}
+
+.login p.remember_me input {
+  position: relative;
+  bottom: 1px;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+
+.login p.submit {
+  text-align: right;
+}
+
+.login-help {
+  margin: 20px 0;
+  font-size: 11px;
+  color: white;
+  text-align: center;
+  text-shadow: 0 1px #2a85a1;
+}
+
+.login-help a {
+  color: #cce7fa;
+  text-decoration: none;
+}
+
+.login-help a:hover {
+  text-decoration: underline;
+}
+
+:-moz-placeholder {
+  color: #c9c9c9 !important;
+  font-size: 13px;
+}
+
+::-webkit-input-placeholder {
+  color: #ccc;
+  font-size: 13px;
+}
+
+input {
+  font-family: 'Lucida Grande', Tahoma, Verdana, sans-serif;
+  font-size: 14px;
+}
+
+input[type=text], input[type=password] {
+ 
+  width: 200px;
+  height: 34px;
+  /* color:rgba(2,2,2,0.9);
+  color: #404040;
+  background: white; */
+  background-color:transparent;
+  border: 1px solid;
+  border-color: #c4c4c4 #d1d1d1 #d4d4d4;
+  border-radius: 2px;
+  outline: 5px solid #eff4f7;
+  -moz-outline-radius: 3px;
+  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+input[type=text]:focus, input[type=password]:focus {
+  border-color: #7dc9e2;
+  outline-color: #dceefc;
+  outline-offset: 0;
+}
+
+input[type=button] {
+  padding: 0 18px;
+  height: 29px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #000;
+  text-shadow: 0 1px #e3f1f1;
+  background: #000;
+  border: 1px solid;
+  border-color: #b4ccce #b3c0c8 #9eb9c2;
+  border-radius: 16px;
+  outline: 0;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  background-image: -webkit-linear-gradient(top, #edf5f8, #cde5ef);
+  background-image: -moz-linear-gradient(top, #edf5f8, #cde5ef);
+  background-image: -o-linear-gradient(top, #edf5f8, #cde5ef);
+  background-image: linear-gradient(to bottom, #edf5f8, #cde5ef);
+  -webkit-box-shadow: inset 0 1px white, 0 1px 2px rgba(0, 0, 0, 0.15);
+  box-shadow: inset 0 1px white, 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+input[type=button]:active {
+  background: #cde5ef;
+  border-color: #9eb9c2 #b3c0c8 #b4ccce;
+  -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
+}
+
+.lt-ie9 input[type=text], .lt-ie9 input[type=password] {
+  line-height: 34px;
+}
+
+
+</style>
+
+
+
+</head>
+<body>
+
+<!-- 로그인 화면 비디오 --> 
+ <video autoplay loop id="bgvid">
+	<source src="../video/band.mp4" type="video/mp4">
+</video> 
+
+	<div class="">
+		<div class="">
+		<div style="margin-top: 20px;">
+			<h1>WithJam</h1>
+			<hr style="margin: 0 auto; width: 600px;">
+				<label style="font-size: 35px; ">All the music is one place</label>
+			<hr style="margin: 0 auto; width: 600px;">
+		</div>
+			<!-- 로그인 폼  -->
+			<div id="loginform" class="loginForm login" style=" margin-top: 120px;">
+				<div>
+					<h2>Login</h2>
+					<form>
+						<p>
+							<input type="text"  value="" placeholder="Email" id='login-email'>
+						</p>
+						<p>
+							<input type="password"  value="" id="login-pwd"
+								placeholder="Password">
+						</p>
+						<p class="remember_me">
+							<label> <input type="checkbox" name="remember_me"
+								id="login-save"> Remember
+							</label>
+						</p>
+
+						<p class="submit">
+							<input id="register" type="button" name="register"
+								value="Register"> 
+							<input	type="button" id='btnLogin' value="Login">
+						</p>
+					</form>
+				</div>
+
+			</div>
+
+			<!-- 회원가입 폼  -->
+			<div id="registerform" class="loginForm login"  style=" margin-top: 100px;">
+				<div>
+					<h2>Register</h2>
+					<form>
+						<p>
+							<input type="text" value="" placeholder="Email" id='signup-email'>
+							<span  id='email-validate'></span>
+						</p>
+						
+						
+						<p>
+							<input type="password" value="" placeholder="Password" id='signup-pwd'
+								title='최소 8자 이상 입력하세요. 추측하기 쉬운 비밀번호는 사용하지 마세요'>
+							<span
+								 id='pwd-validate'></span>
+						</p>
+					
+						<p>
+							<input type="password" value="" placeholder="re-Password" id='signup-pwd2'>
+							<span  id='pwd2-validate'></span>
+						</p>
+						<p>
+							<input type="text" id="signup-uname" value="" placeholder="Nickname">
+							<span  id='uname-validate'></span>
+						</p>
+
+						<input type="button" value="signup" id='signup' value="signup">
+						<input type="button" value="cancel" id='cancel' value="cancel">
+
+					</form>
+				</div>
+			</div>
+
+            </div>
+	</div>
+
+
+
+	<script type="text/javascript">
+	var emailValid = 'null';
+	
+	 $('#btnLogin').click(function(event){
+		    $.post('../json/auth/login.do'
+		        , {
+		          email : $('#login-email').val(),
+		          pwd : $('#login-pwd').val(),
+		          save : $('#login-save').is(':checked')
+		        }
+		        , function(data){
+		          if (data.status == 'success') {
+		            location.href = '../html/mainFrame.html';
+		          } else {
+		            alert('로그인 아이디 또는 암호가 맞지 않습니다.');
+		            $('#login-pwd').val('');
+		          }
+		        }
+		        , 'json');
+		        
+		       
+		  });
+	   
+	    
+		$("#registerform").hide();
+
+		$("#register").click(function() {
+			$("#loginform").hide();
+			$("#registerform").show();
+		});
+
+		$("#cancel").click(function() {
+			$("#loginform").show();
+			$("#registerform").hide();
+		});
+
+		$('#signup').click(function() {
+           /*  console.log(emailValid); */
+            
+           if($('#signup-email').val()==''){
+            	return false;
+            }
+            
+            if($('#signup-pwd').val()==''){
+            	return false;
+            }
+            
+            if($('#signup-pwd2').val()==''){
+            	return false;
+            }
+            
+            if($('#signup-uname').val()==''){
+            	return false;
+            }
+            
+            if(emailValid=='false'){
+            	return false;
+            }
+            
+            if($('#signup-pwd').val()!=$('#signup-pwd2').val()){
+            	return false;
+            }
+            
+            if($('#signup-pwd').val()<8){
+            	return false;
+            } 
+            
+            $.post('../json/auth/signup.do' 
+            	      , { 
+            	        email : $('#signup-email').val(),
+            	        pwd : $('#signup-pwd').val(),
+            	        uname : $('#signup-uname').val()
+            	       
+            	      } 
+            	      , function(result){ 
+            	        if (result.status == "success") {
+            	          window.location.reload(true);
+            	        } else {
+            	        
+            	        }
+            	      } 
+            	      , 'json' )
+            	  
+            	   .fail(function(jqXHR, textStatus, errorThrown){ 
+            	     alert(textStatus + ":" + errorThrown);
+            	   });
+   
+            
+		});
+            
+            
+
+			
+	
+		$(function() {
+			var tooltips = $("[title]").tooltip({
+				position : {
+					my : "left top",
+					at : "right+5 top-5"
+				}
+			});
+
+		});
+
+		$('form>p>span').css('display', 'none');
+
+		$("#signup-email").focus(function() {
+			$('#email-validate').css('display', '');
+		});
+
+
+	<!-- 회원가입 유효성 검사 -->
+	
+	<!-- email 유효성 검사. -->
+		$("#signup-email").focusout(function() {
+			var email = $('#signup-email').val();
+			$('#email-validate').css('display', '');
+			if (email == '') {
+				$('#email-validate').html('필수 입력항목입니다.');
+				
+			}
+		});
+
+		$("#signup-email")
+				.keyup(
+						function() {
+							var email = $('#signup-email').val();
+							$('#email-validate').css('display', '');
+							if (IsEmail(email) == false) {
+								$('#email-validate').html('잘못된 email폼 입니다');	
+								emailValid = 'false';
+							} else if (IsEmail(email) == true) {
+								$
+				          			.get(
+												"http://localhost:3000/idCheck?email="
+														+ email,
+												function(data) {
+													if (data.length == 0) {
+
+														$('#email-validate')
+																.css('display',
+																		'');
+														$('#email-validate').css('color','white');
+														$('#email-validate')
+																.html(
+																		'사용할 수 있는 email주소입니다.');
+														emailValid = 'true';
+														console.log(emailValid);
+
+													}else{
+														$('#email-validate').css('color','white');
+														$('#email-validate')
+														.html(
+																'이미 등록된 이메일 주소입니다.');
+														emailValid = 'false';
+														
+													}
+												});
+
+							}
+							
+							
+
+							function IsEmail(email) {
+								var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+								if (!regex.test(email)) {
+									return false;
+								} else {
+									return true;
+								}
+							}
+						});
+		
+			var pwd ;
+			var pwd2 ;
+			
+			
+		$("#signup-pwd").focusout(function() {
+			pwd = $('#signup-pwd').val();
+			$('#pwd-validate').css('display', '');
+			if (pwd == '') {
+				$('#pwd-validate').html('필수 입력항목입니다.');
+				
+			}else if(pwd.length<8){
+				$('#pwd-validate').html('8자이상의 패스워드를 입력해주세요.');
+				
+			}else if(pwd.length>=8){
+				$('#pwd-validate').html('');
+			}
+		});
+		
+		$("#signup-pwd2").focusout(function() {
+			pwd2 = $('#signup-pwd2').val();
+			$('#pwd2-validate').css('display', '');
+			
+			if (pwd2 == '') {
+				$('#pwd2-validate').html('필수 입력항목입니다.');
+				
+			}
+			
+			if(pwd!=pwd2){
+				$('#pwd2-validate').html('패스워드가 일치하지 않습니다.');
+				
+			}else if(pwd==pwd2){
+				$('#pwd2-validate').html('동일한 패스워드입니다.');
+				$('#pwd2-validate').css('color','white');
+			}
+		});
+		
+		
+		$("#signup-uname").focusout(function() {
+			var uname = $('#signup-uname').val();
+			$('#uname-validate').css('display', '');
+			if (uname == '') {
+				$('#uname-validate').html('필수 입력항목입니다.');
+			}else{
+				$('#uname-validate').css('display', 'none');
+			}
+		});
+		
+		/* $('#submit').click(function(){
+			return false;
+		});  */
+		
+		
+			  
+			 
+		
+		
+		                
+	</script>
+
+</body>
+</html>

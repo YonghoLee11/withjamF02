@@ -1,0 +1,43 @@
+<div class=" searchList" style="overflow: scroll;overflow: hidden;">
+
+
+
+</div>
+<script>
+
+
+ $.get("http://localhost:3000/search?"
+		                +"keyWord=" +$(".for-allSearch").val()
+						+"&searchMember=" +$(".for-allSearch").val()
+						+"&searchBoard=" +$(".for-allSearch").val()
+						+"&searchBand="  +$(".for-allSearch").val(),
+						function(data) {
+							if (data.length != 0) {
+								
+								console.log(data);
+								
+								var search = {
+										searchList :data
+								}
+								
+								
+					
+									require([ 'text!templates/take1-allsearch.html' ], function(
+											html) {
+										var template = Handlebars.compile(html);
+										$('.searchList').html(template(search));
+										
+									}); 
+								
+								
+							}else{
+								console.log('search fail..');
+								require([ 'text!templates/take1-allsearch.html' ], function(
+										html) {
+									var template = Handlebars.compile(html);
+									$('.searchList').html(template(search));
+								}); 
+							}
+						});
+						
+ </script>						

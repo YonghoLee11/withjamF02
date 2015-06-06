@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="withjam.dao.BoardDao">
+
+	
+	<resultMap type="Board" id="BoardMap">
+		<result column="BNO" property="bno" />
+		<result column="UID" property="uid" />
+		<result column="TITLE" property="title" />
+		<result column="CONTENT" property="content" />
+		<result column="BDATE" property="bdate" />
+		<result column="RDATE" property="rdate" />
+		<result column="BF_NAME" property="bfName" />
+		<result column="RF_NAME" property="rfName" />
+		<result column="CNT" property="cnt" />
+		<result column="UNAME" property="uname" />
+		<result column="UPHOTO" property="uphoto" />
+		<result column="BUNAME" property="buname" />
+		<result column="GENRENO" property="genreNo" />
+		<result column="INSTNO" property="instNo" />
+		<result column="HITS" property="hits" />
+		<!-- <result column="CNT" property=""/> -->
+	</resultMap>
+
+
+
+	<insert id='insertBoard'>
+		INSERT INTO BOARD(UID,TITLE,CONTENT,BDATE,BF_NAME)
+		VALUES(#{uid},#{title},#{content},SYSDATE(),#{bfName});
+	</insert>
+
+	<!-- BoardList -->
+	<select id='BoardPlayList' parameterType="Board" resultMap="BoardMap">
+		SELECT BNO,TITLE,CONTENT,BDATE,BF_NAME FROM BOARD WHERE BNO = #{bno}
+		ORDER BY BNO;
+	</select>
+
+	<select id='MyBoardList' parameterType="Board" resultMap="BoardMap">
+		SELECT BNO,TITLE,CONTENT,BDATE,BF_NAME FROM BOARD WHERE UID = #{uid} ORDER
+		BY BNO;
+	</select>
+	
+	
+	
+	<select id='hitsBoard'>
+		UPDATE BOARD SET HITS = (IFNULL(HITS,0)+1) WHERE BNO = #{bno};
+	</select>
+<select id='PlayerList' parameterType="Board" resultMap="BoardMap">
+	SELECT 
+		BNO
+		,TITLE
+		,BDATE
+		,BF_NAME
+		,UNAME
+	FROM BOARD A
+		,MEMBERS B
+	WHERE A.UID = B.UID
+		AND A.BNO = #{bno}
+	UNION ALL
+	SELECT A.RNO
+		,A.CONTENT
+		,RDATE
+		,RF_NAME
+		,B.UNAME
+	FROM REPLY A
+		,MEMBERS B
+	WHERE A.UID = B.UID
+	AND   A.BNO = #{bno};
+	</select>
+	<select id='BoardList' parameterType="Board" resultMap="BoardMap">
+	SELECT 
+    A.*
+    FROM (
+	SELECT
+	A.BNO
+	,A.UID
+	,A.TITLE
+	,A.CONTENT
+	,A.BDATE
+	,A.BF_NAME
+	,A.GENRENO
+	,A.INSTNO
+	,A.HITS
+	,B.CNT
+	,C.UNAME
+    ,C.UPHOTO
+	FROM (SELECT A.* FROM BOARD A WHERE UID=#{uid}) a
+	LEFT OUTER JOIN (SELECT BNO,COUNT(*) CNT FROM REPLY GROUP BY BNO) B
+	ON A.BNO = B.BNO
+	LEFT OUTER JOIN MEMBERS C
+	ON A.UID = C.UID
+    UNION ALL
+    SELECT
+	A.BNO
+	,A.UID
+	,A.TITLE
+	,A.CONTENT
+	,A.BDATE
+	,A.BF_NAME
+	,A.GENRENO
+	,A.INSTNO
+	,A.HITS
+	,B.CNT
+	,C.UNAME
+    ,C.UPHOTO
+	FROM 
+    (SELECT A.* 
+    FROM BOARD A 
+    ,FRIEND B
+	WHERE A.UID = B.F_UID
+	AND   B.UID = #{uid}) A
+	LEFT OUTER JOIN (SELECT BNO,COUNT(*) CNT FROM REPLY GROUP BY BNO) B
+	ON A.BNO = B.BNO
+	LEFT OUTER JOIN MEMBERS C
+	ON A.UID = C.UID
+    ) A
+    ORDER BY BNO;
+</select>
+
+
+
+<select id='OtherBoardList' parameterType="int" resultMap="BoardMap">
+	SELECT
+	A.BNO
+	,A.UID
+	,A.TITLE
+	,A.CONTENT
+	,A.BDATE
+	,A.BF_NAME
+	,A.GENRENO
+	,A.INSTNO
+	,A.HITS
+	,B.CNT
+	,C.UNAME
+    ,C.UPHOTO
+	FROM (SELECT A.* FROM BOARD A WHERE UID=#{uid}) a
+	LEFT OUTER JOIN (SELECT BNO,COUNT(*) CNT FROM REPLY GROUP BY BNO) B
+	ON A.BNO = B.BNO
+	LEFT OUTER JOIN MEMBERS C
+	ON A.UID = C.UID
+    ORDER BY BNO;
+</select>
+
+	<select id='SelectBoard' parameterType="Board" resultMap="BoardMap">
+		SELECT BNO, A.UID, TITLE, CONTENT, BDATE, BF_NAME, B.UNAME, B.UPHOTO 
+		FROM BOARD A JOIN MEMBERS B ON A.UID = B.UID WHERE A.BNO = #{bno};
+	</select>
+	
+	
+
+</mapper>

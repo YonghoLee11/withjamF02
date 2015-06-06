@@ -1,0 +1,22 @@
+ {{#each replyList}}
+ 
+<tr>
+	<td rowspan="2" width="40px;" height="45px;"><img class="replyImg"
+		src="../img/temp.jpg"></td>
+	<td width="200px;" height="15px;"><label style="font-size: 12px;">{{uname}}</label>
+		<label class="contentDate" style="font-size: 8px;">{{rdate}}</label>
+	</td>
+	<td></td>
+	<td width="50px;" align="right"><img id="deleteImg"
+		src="../img/symbol5-2.png"></td>
+</tr>
+<tr>
+	<td colspan="4"><label class="replyFontSize" style="width: 100%;">{{content}}</label>
+	</td>
+</tr>
+<tr>
+	<td colspan="5"></td>
+
+</tr>
+
+{{/each}}

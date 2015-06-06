@@ -1,0 +1,59 @@
+<!-- {{#each chartList}}
+
+<div id='rank-slider'>
+<div class='rank-slider'>{{searchInfo}}</div>
+<div>{{cnt}}</div>
+</div>
+{{/each}} -->
+<!-- chartList -->
+<style>
+.for-searchRankNo{
+  color: #FA5858;
+}
+
+.for-searchRankLabel{
+  color: white;
+}
+
+.slide {
+  /* position: absolute; */
+  /* border:gray 1px solid; */
+ /*  left: 50px; */
+  width: 200px;
+  height: 30px;
+  
+  font-size: 25px;
+  
+  list-style-type: none;
+  /* display: block; */
+}
+
+.slides{
+  width: 200px;
+}
+
+.for-slide-div{
+  position: fixed;
+  
+  left: 63%;
+  max-width:200px;
+  top: 12px;
+  z-index: 100000;
+  /* width: 200px; */
+  height: 30px;
+  overflow: hidden;
+  
+}
+
+</style>
+
+
+<ul class='slides'>
+    {{#each chartList}}
+    <li class="slide"><label class='for-searchRankNo'>{{no}}</label> <label class='for-searchRankLabel'>{{searchInfo}}</label></li>
+    {{/each}}
+</ul>
+
+<script>
+ 
+</script>

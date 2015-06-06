@@ -1,0 +1,36 @@
+
+
+
+
+
+
+<form id="my-info-update" action="../json/member/updateMyInfo.do" method="post" enctype="multipart/form-data">
+
+<input type="file" class='for-view-photo-input' name='myPhoto'>
+<textarea rows="" cols="" class='for-comment-update' name='comment'></textarea>
+   <input type="submit" value="등록" class='for-sttings-submit'>
+</form>
+
+<script>
+
+$('#my-info-update').ajaxForm({
+	       
+	            beforeSubmit: function (data, frm, opt) {
+	                            alert("전송전!!");
+	                            return true;
+	                          },
+	            
+	            success: function(responseText, statusText){
+	                alert("전송성공!!");
+	            } ,
+	            
+	            error: function(){
+	                alert("에러발생!!");
+	            }                               
+	          });
+
+</script>
+
+
+
+

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <!-- protected int searchNo;
+	protected String searchInfo;
+	protected Date searchDate;
+	protected int searchUid; -->
+
+<mapper namespace="withjam.dao.SearchDao">
+
+	<resultMap type="Search" id="searchMap">
+		<result column="SEARCH_NO" property="searchNo" />
+		<result column="SEARCH_INFO" property="searchInfo" />
+		<result column="SEARCH_DATE" property="searchDate" />
+		<result column="SEARCH_UID" property="searchUid" />
+	</resultMap>
+    
+    <insert id='searchInsert' parameterType="Search">
+       INSERT INTO SEARCH(SEARCH_INFO,SEARCH_DATE,SEARCH_UID) VALUES(#{searchInfo},SYSDATE(),#{searchUid});
+    </insert>
+    
+</mapper>

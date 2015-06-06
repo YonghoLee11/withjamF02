@@ -1,0 +1,144 @@
+<style>
+.for-msg-line-div>div{
+  display: inline-block;
+}
+
+.for-msg-line-div>div:nth-child(2){
+  display: inline-block;
+  width: 50px;
+}
+
+.for-msg-line-div>div:nth-child(3){
+  display: inline-block;
+  width: 180px;
+  
+}
+
+.for-msg-line-div>div:nth-child(4){
+  display: inline-block;
+ 
+}
+
+.for-msg-line-div{
+  width: 100%;
+  border-bottom: #1e1e1e 1px solid;
+  border-top: 1px solid #585858;
+}
+
+.on{
+  color: silver;
+}
+</style>
+
+<div class='for-msg-line-div'>
+<div class='for-msg-div'><input type="checkbox" class='allCheck'></div>
+<div class='for-msg-div'>이름</div>
+<div class='for-msg-div'>제목</div>
+<div class='for-msg-div'>보낸날짜</div>
+</div>
+
+
+{{#each Msgs}}
+
+<div class='for-msg-line-div'>
+<div class='for-msg-div'><input type="checkbox" data-msgNo='{{msgNo}}' class='msgdelCheck'></div>
+<div class='for-msg-div'><a>{{fUname}}</a></div>
+<div class='for-msg-div'><a class='for-takemsg-title {{confirm}}' data-msgNo='{{msgNo}}'>{{title}}</a></div>
+<div class='for-msg-div'>{{sendTime}}</div>
+</div>
+
+{{/each}}
+ 
+
+
+
+ 
+<script>
+
+
+$(".for-check-delete").click(function(event){
+	  event.preventDefault();
+	  var msgNo = [];
+	  /* 첵크 벨류 가져올 변수 선언 */ 
+	  var checkVal = []; 
+	  $("input:checkbox:checked").map(function(){
+	    msgNo.push($(this).attr('data-msgNo'));
+	  });
+	  
+	  /* 첵크된 벨류 가져오기 */
+	  $("input:checkbox:checked").map(function(){
+		  checkVal.push($(this).val());
+		  });
+	  console.log(msgNo);
+	  console.log(checkVal);
+	  console.log(msgNo.length);
+	  
+	  
+             for(var i=0; i<msgNo.length;i++){
+				$.getJSON('../json/message/myTakeMsgDelCheck.do?msgNo='
+						+ msgNo[i]
+				        + '&checkVal='
+				        + checkVal[i]
+				   , function(data) {
+					if (data.status=='success'){
+						console.log('take msg delete success..');
+						TakeMsgBox();
+						 msgNo = [];  
+			             console.log(msgNo.length + 'length');
+					}else{
+						console.log('msgDelete fail..');
+					}
+				});
+             } 
+             
+            
+	});
+	
+$(".allCheck").click(function(){
+	console.log('test');
+    //클릭되었으면
+    if($(".allCheck").prop("checked")){
+        //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의
+        $("input[class=msgdelCheck]").prop("checked",true);
+        //클릭이 안되있으면
+    }else{
+        //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의
+        $("input[class=msgdelCheck]").prop("checked",false);
+    }
+});
+
+$(".for-takemsg-title").click(function(){
+	console.log($(this).attr('data-msgNo'));
+	$.getJSON('../json/message/takeMsgSelectOne.do?msgNo='
+			+ $(this).attr('data-msgNo')
+	   , function(data) {
+		if (data.status=='success'){
+			console.log(data.status);
+			console.log(data);
+			
+				require([ 'text!templates/take2-takeMsgOne.html' ], function(
+						html) {
+					var template = Handlebars.compile(html);
+					$('.msg-bottom').html(template(data));
+				});
+			
+		}else{
+			console.log('msgDelete fail..');
+		}
+	});
+	
+	
+	$.getJSON('../json/message/takeMsgConfirmUpdate.do?msgNo='
+			+ $(this).attr('data-msgNo')
+	   , function(data) {
+		if (data.status=='success'){
+			console.log('confirm on success');
+			TakeMsgBox();
+			MsgConfirmCnt();
+		}else{
+			console.log('msgDelete fail..');
+		}
+	});
+});
+
+</script>

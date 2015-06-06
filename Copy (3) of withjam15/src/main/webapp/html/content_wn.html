@@ -1,0 +1,30 @@
+<!-- 
+<div id="writeContent"></div>
+ -->
+<!-- <div id="contentList" ></div> -->
+
+<script>
+
+
+
+$.getJSON('/withjam15/json/auth/loginUser.do', function(data) {
+	if (data.status == 'fail') {
+		console.log('loginUser fail..');
+	} else {
+		var loginUser = data.loginUser;
+
+		$.getJSON('../json/board/BoardList.do?uid=' + loginUser.uid, function(data) {
+			console.log(data);
+			require([ 'text!templates/innerContent.html' ], function(
+					html) {
+				var template = Handlebars.compile(html);
+				$('#list-side').html(template(data));
+			});
+		});
+		
+	}
+}); 
+
+
+</script>
+

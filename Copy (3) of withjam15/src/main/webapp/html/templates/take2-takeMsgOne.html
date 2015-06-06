@@ -1,0 +1,42 @@
+<style>
+.for-send-user{
+  width: 100%;
+  border-bottom: #1e1e1e 1px solid;
+  border-top: 1px solid #585858;
+}
+.for-take-msg-content-div{
+  width: 100%;
+  border-top: 1px solid #585858;
+  white-space: pre;
+}
+
+.for-take-msg-content{
+  width: 100%;
+  white-space: normal;
+}
+
+</style>
+
+<div class='for-send-user'><label>보낸사람 : </label><a>{{msgOne.uname}}</a></div>
+<div class='for-take-msg-content-div'>
+<label>내용</label>
+<p class='for-take-msg-content'>{{msgOne.content}}</p>
+</div>
+
+<button class="btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm" 
+        data-uid='{{msgOne.uid}}' data-uname='{{msgOne.uname}}'
+        style="background: #FA5858">답장</button>
+
+
+
+
+<script>
+
+$('.btn-primary').click(function(){
+	console.log($(this).attr('data-uname'));
+	$('.for-sendMsgUname').val($(this).attr('data-uname'));
+	$('.msgSendBtn').attr('data-uid',$(this).attr('data-uid'));
+	console.log($('.msgSendBtn').attr('data-uid'));
+});
+
+</script>

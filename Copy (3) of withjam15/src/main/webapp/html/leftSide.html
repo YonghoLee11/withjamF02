@@ -1,0 +1,23 @@
+
+	<div class='function-div my-info' ></div>
+	
+
+
+
+
+<script>
+$.getJSON('../json/member/myInfo.do'
+			, function(data) {
+			console.log(data);
+			require([ 'text!templates/function-myInfo.html' ], function(
+					html) {
+				var template = Handlebars.compile(html);
+				$('.my-info').html(template(data));
+			});
+		});
+		
+		
+
+	
+		
+		</script>

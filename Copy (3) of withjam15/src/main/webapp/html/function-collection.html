@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+
+<style>
+.function-div {
+	width: 300px;
+	height: 300px;
+	border: 1px solid gray;
+	float: left;
+	overflow: scroll;
+}
+
+.member-list-detail-div{
+    width: 100%;
+    height: 33%;
+    border: 1px solid gray;
+}
+
+.member-photo{
+    width: 32%;
+    height: 100%;
+    border: 1px gray solid;
+    float: left;
+}
+
+.member-info-name{
+    width: 65%;
+    height: 20%;
+    /* border: 1px gray solid; */
+    float: left;
+    margin-top: 8%;
+}
+.member-info-etc{
+    width: 65%;
+    height: 20%;
+    /* border: 1px gray solid; */
+    float: left;
+    color: #999;
+}
+
+
+.accordion {
+	width: 100%;
+}
+
+
+.btns {
+	height: 22px;
+	width: 65px;
+	background-color: #3447A8;
+	color: #FFFFFF;
+	border-radius: 5px;
+}
+
+textarea {
+	width: 99%;
+	overflow: visible;
+	/* border: 2px solid #765942; */
+	border-radius: 10px;
+	/* height: 60px; */
+	/* width: 230px; */
+}
+
+.divRadius {
+	border-radius: 4px;
+}
+
+.floatLeft {
+	float: left;
+}
+
+.divPadding {
+	padding: 5px;
+}
+
+#profileImg {
+	width: 30px;
+	height: 30px;
+}
+
+#imgSize {
+	width: 45%;
+	height: 45%;
+} 
+#deleteImg{
+	width: 12px;
+	height: 12px;
+}
+.recordImg{
+	width: 22px;
+	height: 22px;
+}
+#checkTest{
+	display: none;
+}
+#checkTest + label{
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	border: 2px solid #bcbcbc;
+	cursor: pointer;
+}
+#checkTest:checked + label:after{
+	position: relative;
+	top: -3px;
+	left: 0px;
+	content: '\2714';
+	font-size: 25px;
+}
+
+
+</style>
+
+
+<script type="text/javascript" src='../js/handlebars-v2.0.0.js'></script>
+<script src='../js/jquery-1.11.1.js'></script>
+<script src='jquery-form.js'></script>
+<script type="text/javascript" src='../js/require.js'></script>
+<!-- <script src="../js/bootstrap.min.js"></script> -->
+<!-- <script src="../js/modernizr.custom.js"></script>
+<script src="../js/jquerypp.custom.js"></script> -->
+<script src="../js/recordmp3js/recordmp3.js"></script>
+
+
+<!-- <script type="text/javascript" src='../js/handlebars-v2.0.0.js'></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
+<script src='jquery-form.js'></script>
+<script type="text/javascript" src='../js/require.js'></script>
+<script src="../js/recordmp3js/recordmp3.js"></script> -->
+
+
+<body>
+
+    <div class='function-div follower-list'>
+		<div class='member-list-detail-div'>
+			<div class='member-photo'></div>
+			<div class='member-info-name'></div>
+			<div class='member-info-etc'></div>
+		</div>
+	</div>
+    
+<form id="my-info-update" action="../json/member/updateMyInfo.do" method="post" enctype="multipart/form-data">
+	<div class='function-div member-info-update'>
+	<!-- <form id="my-info-update" action="../json/member/updateMyInfo.do" method="post" enctype="multipart/form-data">
+	<input type='file' name='myPhoto'>
+	<select name='genreNo'>
+	   <option value='7'>발라드</option>
+	   <option value='8'>댄스</option>
+	   <option value='9'>랩/힙합</option>
+	   <option value='10'>R&B</option>
+	   <option value='11'>Soul</option>
+	   <option value='12'>록</option>
+	   <option value='13'>일렉트로니카</option>
+	   <option value='14'>트로트</option>
+	   <option value='15'>포크</option>
+	   <option value='16'>인디음악</option>
+	   <option value='17'>국악</option>
+	   <option value='18'>그외 기타</option>
+	</select>
+	<textarea rows="" cols="" name='comment'></textarea>
+	
+	<input type="submit" value="내 정보 변경">
+	
+	</form> -->
+	
+	
+	
+	
+<!-- <div class='setting-header'>
+   <div class='setting-icon-div'><img src='../img/setting-w.png'></div> 
+   회원님의 소중한 정보를 변경하는 공간입니다.
+</div>
+<div class='setting-center'>
+
+  <div class='for-upload-photo-div'><input type="file" class='for-view-photo-input' name='myPhoto'>
+  <img class='for-view-photo'></div>
+  <div class='for-upload-photo-label'>
+    <br><br><br>회원님의 사진을 <br>
+    업로드 하는 공간입니다.<br>
+  </div>
+  
+</div>
+
+<div class='setting-bottom'>
+   <p>회원님에 대한 간단한 소개를 남겨주세요.</p>
+   <textarea rows="" cols="" class='for-comment-update' name='comment'></textarea>
+   <input type="submit" value="등록" class='for-sttings-submit'>
+</div> -->
+<!-- <input type="file" class='for-view-photo-input' name='myPhoto'>
+<textarea rows="" cols="" class='for-comment-update' name='comment'></textarea>
+   <input type="submit" value="등록" class='for-sttings-submit'> -->
+   
+   <div class='setting-header'>
+   <div class='setting-icon-div'><img src='../img/setting-w.png'></div> 
+   회원님의 소중한 정보를 변경하는 공간입니다.
+</div>
+<div class='setting-center'>
+
+  <div class='for-upload-photo-div'><input type="file" class='for-view-photo-input' name='myPhoto'>
+  <img class='for-view-photo'></div>
+  <div class='for-upload-photo-label'>
+    <br><br><br>회원님의 사진을 <br>
+    업로드 하는 공간입니다.<br>
+  </div>
+  
+</div>
+
+<div class='setting-bottom'>
+   <p>회원님에 대한 간단한 소개를 남겨주세요.</p>
+   <textarea rows="" cols="" class='for-comment-update' name='comment'></textarea>
+   <input type="submit" value="등록" class='for-sttings-submit'>
+</div>
+
+	
+	
+	</div>
+	</form>
+	
+	
+	<div class='function-div my-info'>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	<div class='function-div upload-board'>
+	
+	<div class="divRadius  " >
+
+			- - - - - 녹음 - - - - -
+			
+			<div id="toggleDiv" class="divPadding" >
+			<hr>
+				<table style="width: 100%; height: 35px;" id="uploadDiv" class="uploadTable">
+					<tr>
+						<td width="10%"><button class="uploadToggle">toggle1</button></td>
+						<td><input type="file"></td>
+					</tr>
+				</table>
+			
+				<table style="width: 100%; height: 35px;" id="recordDiv" class="recordTable">
+					<tr>
+						<td width="5%"></td>
+						<td width="25%;" style="text-align: left;">
+
+							<img class="recordImg" onclick="startRecording(this);" src="../img/media-record-1.png">
+							<img class="recordImg" onclick="stopRecording(this);" src="../img/media-stop2.png">
+							<img  id="micCheck" class="recordImg" onclick="micSetting(this)" src="../img/MIC-3.ico">
+
+						</td>
+						<td width="35%;"><label id="log">audio check</label></td>
+						<td width="30%;">
+							
+						</td>
+						<td width="5%"></td>
+					</tr>
+				</table>
+
+				<hr>
+
+				녹음 리스트
+				<table id="recordingslist" style="text-align: center;">
+				</table>
+			</div>
+
+		</div>
+
+
+	</div>
+		
+	
+	
+	
+	<div class='function-div upload-reply'>
+		
+	<form id="upload-reply-form" action="../json/board/insertReply.do" method="post" enctype="multipart/form-data">
+	<input type='file' name='musicFile'>
+	<textarea rows="" cols="" name='content'></textarea>
+	
+	<input type="submit" value="리플달기">
+	
+	</form>		
+		
+	</div>
+	
+
+	<div class='function-div send-msg'>
+		<form>
+			<input type='text' id='send-msg-title'>
+			<textarea rows="" cols="" id='send-msg-content'></textarea>
+		</form>
+	</div>
+	
+	
+	
+	
+	<div class='function-div upload-board2'>
+	 <form id="upload-board-form2" action="../json/board/insertBoard.do" method="post" enctype="multipart/form-data">
+	<input type='text' name='title' placeholder="title" style="border: 1px solid gray;">
+	<textarea rows="" cols="" name='content'></textarea>
+	<input type="file" name='musicFile'>
+	</form>
+	</div>
+
+
+
+
+    
+	
+<script>
+
+
+/* 친구리스트 */
+
+$.getJSON('/withjam15/json/auth/loginUser.do', function(data) {
+	if (data.status == 'fail') {
+		console.log('loginUser fail..');
+	} else {
+		var loginUser = data.loginUser;
+		console.log(loginUser);
+
+		$.getJSON('../json/friend/myFollowList.do?uid='
+				+ loginUser.uid, function(data) {
+			console.log(data);
+			require([ 'text!templates/function-my-follow.html' ], function(
+					html) {
+				var template = Handlebars.compile(html);
+				$('.follower-list').html(template(data));
+			});
+		});
+	}
+}); 
+
+
+
+/* 내정보 변경 */ 		
+			$('#my-info-update').ajaxForm({
+				       
+				            beforeSubmit: function (data, frm, opt) {
+				                            alert("전송전!!");
+				                            return true;
+				                          },
+				            
+				            success: function(responseText, statusText){
+				                alert("전송성공!!");
+				            } ,
+				            
+				            error: function(){
+				                alert("에러발생!!");
+				            }                               
+				          });
+				
+/* 내 정보 출력 */ 
+
+
+$.getJSON('../json/member/myInfo.do'
+			, function(data) {
+			console.log(data);
+			require([ 'text!templates/function-myInfo.html' ], function(
+					html) {
+				var template = Handlebars.compile(html);
+				$('.my-info').html(template(data));
+			});
+		});
+		
+		
+/* 글 올리기 */
+
+$('#upload-board-form').ajaxForm({
+				       
+				            beforeSubmit: function (data, frm, opt) {
+				                            alert("전송전!!");
+				                            return true;
+				                          },
+				            
+				            success: function(responseText, statusText){
+				                alert("전송성공!!");
+				            } ,
+				            
+				            error: function(){
+				                alert("에러발생!!");
+				            }                               
+				          });
+				
+				
+				
+$('#upload-board-form2').ajaxForm({
+	       
+	            beforeSubmit: function (data, frm, opt) {
+	                            alert("전송전!!");
+	                            return true;
+	                          },
+	            
+	            success: function(responseText, statusText){
+	                alert("전송성공!!");
+	            } ,
+	            
+	            error: function(){
+	                alert("에러발생!!");
+	            }                               
+	          });				
+				
+				
+$('#upload-reply-form').ajaxForm({
+	       
+	            beforeSubmit: function (data, frm, opt) {
+	                            alert("전송전!!");
+	                            return true;
+	                          },
+	            
+	            success: function(responseText, statusText){
+	                alert("전송성공!!");
+	            } ,
+	            
+	            error: function(){
+	                alert("에러발생!!");
+	            }                               
+	          });	
+
+</script>
+
+
+
+
+<script type="text/javascript">
+	
+
+	function micSetting(button){
+		
+		//마이크 사용중인경우 또 못누르도록..
+		$('#micCheck').attr('disabled',true);
+		
+		//recorder 준비 부분 //
+		try {
+			// webkit shim
+			window.AudioContext = window.AudioContext
+					|| window.webkitAudioContext;
+			navigator.getUserMedia = (navigator.getUserMedia
+					|| navigator.webkitGetUserMedia
+					|| navigator.mozGetUserMedia || navigator.msGetUserMedia);
+			window.URL = window.URL || window.webkitURL;
+
+			audio_context = new AudioContext;
+
+			 __log('set up.');
+			 __log(navigator.getUserMedia ? 'available.'
+								: 'not present!');
+
+			button.disabled = true;
+		} catch (e) {
+			alert('No web audio support in this browser!');
+		}
+
+		navigator.getUserMedia({
+			audio : true
+		}, startUserMedia, function(e) {
+			__log('No live audio input: ' + e);
+		});
+
+	}
+	
+
+		function __log(e, data) {
+			log.innerHTML = "\n" + e + " " + (data || '');
+		}
+
+		var mp3Blob;
+		var audio_context;
+		var recorder;
+
+		function startUserMedia(stream) {
+			var input = audio_context.createMediaStreamSource(stream);
+			__log('Media stream created.');
+			__log("input sample rate " + input.context.sampleRate);
+
+			input.connect(audio_context.destination);
+			__log('Input connected to audio context destination.');
+
+			recorder = new Recorder(input);
+			__log('Ready');
+		}
+
+		function startRecording(button) {
+			recorder && recorder.record();
+			button.disabled = true;
+			button.nextElementSibling.disabled = false;
+			__log('Recording...');
+
+		}
+
+		function stopRecording(button) {
+			recorder && recorder.stop();
+			button.disabled = true;
+			button.previousElementSibling.disabled = false;
+			__log('Stopped recording.');
+
+			// create WAV download link using audio data blob
+			createDownloadLink();
+
+			recorder.clear();
+		}
+
+		//wav 파일 다운로드 생성
+		function createDownloadLink() {
+			recorder && recorder.exportWAV(function(blob) {
+				/*var url = URL.createObjectURL(blob);
+				var li = document.createElement('li');
+				var au = document.createElement('audio');
+				var hf = document.createElement('a');
+				
+				au.controls = true;
+				au.src = url;
+				hf.href = url;
+				hf.download = new Date().toISOString() + '.wav';
+				hf.innerHTML = hf.download;
+				li.appendChild(au);
+				li.appendChild(hf);
+				recordingslist.appendChild(li);*/
+			});
+		}
+		
+		//accodian 방식 관련..
+		$(function() {
+			$("#submenu").hide();
+			$("#writeContent").click(function() {
+				$("#submenu:visible").slideUp("middle");
+				$(this).next('#submenu:hidden').slideDown("middle");
+				return false;
+			})
+
+		});
+
+		//textarea 사이즈 자동증가 
+		function resize(obj) {
+			obj.style.height = "1px";
+			obj.style.height = (20 + obj.scrollHeight) + "px";
+		};
+		
+		function toggleTable(e){
+			if (e.classList.contains("mute")) {
+				e.classList.remove("mute");
+			} else {
+				e.classList.add("mute");
+			}
+		}
+		
+		$(".uploadTable").hide();
+		$(".recordToggle").click(function() {
+			$(".uploadTable").show();
+			$(".recordTable").hide();
+		});
+		$(".uploadToggle").click(function() {
+			$(".uploadTable").hide();
+			$(".recordTable").show();
+		});
+		
+	</script>
+
+
+</body>
+</html>

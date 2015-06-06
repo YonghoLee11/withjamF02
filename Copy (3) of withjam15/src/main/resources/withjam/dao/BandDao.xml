@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="withjam.dao.BandDao">
+
+	<resultMap type="Band" id="bandMap">
+		<!-- PK 컬럼은 id 태그를 사용하여 지정한다. -->
+		<!-- <result column="NAME" property="test01"/> -->
+		<result column="BAND_NO" property="bandNo" />
+		<result column="UID" property="uid" />
+		<result column="BLEVEL" property="bLevel" />
+		<result column="BJOINDATE" property="bJoinDate" />
+		<result column="BAND_NAME" property="bandName" />
+		<result column="BAND_COMMENT" property="bandComment" />
+		<result column="BANDDATE" property="bandDate" />
+		<result column="BPHOTO" property="bPhoto" />
+		<result column="UNAME" property="uname" />
+		<result column="UPHOTO" property="uphoto" />
+		<result column="COMMENT" property="comment" />
+		<result column="GENRENO" property="genreNo" />
+		<result column="FILE_TEST" property="fileTest" />
+		<result column="BOARD_CNT" property="boardCnt" />
+		<result column="FOLLOWER_CNT" property="followerCnt" />
+	</resultMap>
+
+	<select id="myBandList" parameterType="int" resultMap='bandMap'>
+		SELECT
+		A.BAND_NO,A.BAND_NAME,B.BLEVEL
+		FROM BAND A,
+		BANDLIST B
+		WHERE A.BAND_NO =
+		B.BAND_NO
+		AND B.UID=#{uid};
+	</select>
+
+	<!-- myBandListDetail -->
+
+	<select id="myBandListDetail" parameterType="Map" resultMap='bandMap'>
+		SELECT
+		A.BAND_NO
+		,A.BAND_NAME
+		,A.BAND_COMMENT
+		,A.BANDDATE
+		,A.BPHOTO
+		,B.UID
+		,B.BLEVEL
+		,B.BJOINDATE
+		FROM BAND A
+		,BANDLIST B
+		WHERE BAND_NAME=#{bandName}
+		AND B.UID=#{uid}
+		AND A.BAND_NO=B.BAND_NO;
+	</select>
+
+	<!-- myBandMember -->
+
+	<select id="myBandMember" parameterType="int" resultMap='bandMap'>
+		SELECT
+		A.BAND_NO
+		,C.UID
+		,B.BLEVEL
+		,B.BJOINDATE
+		,C.UNAME
+		,C.UPHOTO
+		,C.COMMENT
+		,IFNULL(D.CNT,0) BOARD_CNT
+		,IFNULL(E.CNT,0) FOLLOWER_CNT
+		FROM (SELECT A.* FROM BAND A WHERE BAND_NO = #{uid}) A
+		LEFT OUTER JOIN BANDLIST B
+		ON A.BAND_NO=B.BAND_NO
+		LEFT OUTER JOIN MEMBERS C
+		ON B.UID=C.UID
+		LEFT OUTER JOIN (SELECT UID,COUNT(*) CNT FROM BOARD GROUP BY UID) D
+		ON B.UID=D.UID
+		LEFT OUTER JOIN (SELECT F_UID,COUNT(*) CNT FROM FRIEND GROUP BY F_UID) E
+		ON B.UID=E.F_UID;
+	</select>
+
+	<!-- BandListAdd -->
+
+	<insert id='BandListAdd' parameterType="Band">
+		INSERT INTO BANDLIST(BAND_NO,UID,BLEVEL,BJOINDATE)
+		VALUES(#{bandNo},#{uid},3,SYSDATE())
+	</insert>
+
+	<delete id="BandListDelete">
+		DELETE FROM BANDLIST WHERE UID=#{uid} AND BAND_NO=#{bandNo};
+	</delete>
+
+	<!-- makeBand -->
+
+	<insert id="makeBand" parameterType="Band">
+		INSERT INTO BAND(BAND_NAME,BAND_COMMENT,BANDDATE,BPHOTO)
+		VALUES(#{bandName},#{bandComment},SYSDATE(),#{bPhoto});
+	</insert>
+
+	<!-- makeBand -->
+
+	<insert id="makeBand2" parameterType="Band">
+		INSERT INTO BANDLIST(BAND_NO,UID,BLEVEL,BJOINDATE)
+		VALUES(#{bandNo},#{uid},1,SYSDATE());
+	</insert>
+
+	<select id='LastBandNo' resultMap="bandMap">
+		SELECT MAX(BAND_NO) BAND_NO FROM BAND
+	</select>
+
+	<insert id="insertFile" parameterType="String">
+		INSERT INTO FILE_TEST VALUES(#{testUrl});
+	</insert>
+
+
+	<!-- BandInfo -->
+
+	<select id="BandInfo" parameterType="int" resultMap='bandMap'>
+		SELECT
+		BAND_NO
+		,BAND_NAME
+		,BAND_COMMENT
+		,BANDDATE
+		,BPHOTO
+		FROM BAND
+		WHERE BAND_NO = #{uid};
+	</select>
+
+</mapper>

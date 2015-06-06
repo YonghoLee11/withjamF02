@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="withjam.dao.ReplyDao">
+
+	<resultMap type="Reply" id="ReplyMap">
+		<result column="RNO" property="rno" />
+		<result column="CONTENT" property="content" />
+		<result column="RDATE" property="rdate" />
+		<result column="RF_NAME" property="rfName" />
+		<result column="RSCORE" property="rscore" />
+		<result column="BNO" property="bno" />
+		<result column="UID" property="uid" />
+		<result column="UNAME" property="uname" />
+		<result column="UPHOTO" property="uphoto" />
+	</resultMap>
+	
+	
+	
+	
+	<!-- 음원이 없는 일반 리플 -->
+	<select id='replyList' parameterType="int" resultMap="ReplyMap">
+		SELECT RNO, CONTENT, RDATE, RF_NAME, RSCORE, BNO, UID FROM REPLY WHERE BNO = #{bno} AND RF_NAME IS NULL ORDER BY RNO;
+	</select>
+	
+	<!-- 음원이 있는 플레이어용 리플 -->
+	<select id='soundList' parameterType="int" resultMap="ReplyMap">
+	   <!-- SELECT RNO, CONTENT, RDATE, RF_NAME, RSCORE, BNO, UID FROM REPLY WHERE BNO = #{bno} AND RF_NAME IS NOT NULL ORDER BY RNO;-->
+	   SELECT RNO, CONTENT, RDATE, RF_NAME, RSCORE, BNO, A.UID, B.UNAME, B.UPHOTO 
+	   FROM REPLY A JOIN MEMBERS B ON A.UID = B.UID AND A.BNO=#{bno} AND RF_NAME IS NOT NULL ORDER BY RNO;
+
+	</select>
+
+	<insert id='insertReply'>
+	   INSERT INTO REPLY(CONTENT,RDATE,RF_NAME,BNO,UID,RSCORE) VALUES(#{content},SYSDATE(),#{rfName},#{bno},14,0);
+	</insert>
+
+</mapper>

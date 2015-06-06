@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- <sql> 태그 사용하기 => 자주 사용되는 SQL문은 별도로 정의해두고 포함한다. -->
+
+<mapper namespace="withjam.dao.FriendDao">
+
+
+	<!-- 객체의 컬럼과 프로퍼티를 연결한다. -->
+	<resultMap type="Member" id="memberMap2">
+		<!-- PK 컬럼은 id 태그를 사용하여 지정한다. -->
+		<!-- <result column="NAME" property="test01"/> -->
+		<result column="UID" property="uid" />
+		<result column="EMAIL" property="email" />
+		<result column="PWD" property="pwd" />
+		<result column="UNAME" property="uname" />
+		<result column="UPHOTO" property="uphoto" />
+		<result column="COMMENT" property="comment" />
+		<result column="USCORE" property="uscore" />
+		<result column="MDATE" property="mdate" />
+		<result column="CNT" property="cnt" />
+		<result column="F_UID" property="fUid" />
+		<result column="FOLLOW_YN" property="followYN" />
+	</resultMap>
+
+
+	<resultMap type="Friend" id="friendMap">
+		<result column="CNT" property="cnt" />
+	</resultMap>
+
+	<resultMap type="Board" id="friendDetailMap">
+		<result column="BNO" property="bno" />
+		<result column="UID" property="uid" />
+		<result column="TITLE" property="title" />
+		<result column="CONTENT" property="content" />
+		<result column="BDATE" property="bdate" />
+		<result column="BF_NAME" property="bfName" />
+	</resultMap>
+
+	<select id="myFollowList" parameterType="int" resultMap="memberMap2">
+		SELECT
+		A.UID
+		,A.F_UID
+		,B.UNAME
+		,B.EMAIL
+		,B.COMMENT
+		,C.CNT
+		,'follow' FOLLOW_YN
+		FROM
+		(SELECT A.* FROM FRIEND A WHERE UID=#{uid}) A
+		LEFT OUTER JOIN MEMBERS B
+		ON A.F_UID = B.UID
+		LEFT OUTER JOIN (SELECT UID,COUNT(*) CNT FROM BOARD GROUP BY UID) C
+		ON A.F_UID = C.UID;
+	</select>
+	
+	<select id='myFollowerList' parameterType="int" resultMap="memberMap2">
+	    SELECT
+		A.UID F_UID
+		,A.F_UID UID
+		,B.UNAME
+		,B.EMAIL
+		,B.COMMENT
+		,C.CNT
+		,CASE WHEN D.UID IS NULL THEN 'unfollow' ELSE 'follow' END FOLLOW_YN
+		FROM
+		(SELECT A.* FROM FRIEND A WHERE F_UID=#{uid}) A
+		LEFT OUTER JOIN MEMBERS B
+		ON A.UID = B.UID
+		LEFT OUTER JOIN (SELECT UID,COUNT(*) CNT FROM BOARD GROUP BY UID) C
+		ON A.UID = C.UID
+        LEFT OUTER JOIN (SELECT A.* FROM FRIEND A WHERE UID=#{uid}) D
+        ON A.UID = D.F_UID
+	</select>
+
+	<select id="friendsMaxNo" parameterType="int" resultMap="friendMap">
+		SELECT
+		COUNT(*) CNT
+		FROM FRIEND A
+		WHERE A.UID=#{uid}
+	</select>
+
+
+	<select id="friendDetailList" parameterType="int" resultMap="friendDetailMap">
+		SELECT
+		B.*
+		FROM
+		BOARD B
+		WHERE B.UID=#{uid}
+	</select>
+	<!-- friendDetailList -->
+
+	<delete id="FriendDelete" parameterType="Member">
+		DELETE FROM FRIEND WHERE UID=#{uid} AND F_UID=#{fUid}
+	</delete>
+   
+    <insert id="FriendAdd" parameterType="Member">
+        INSERT INTO FRIEND(UID,F_UID) VALUES(#{uid} , #{fUid});
+    </insert>
+
+</mapper>

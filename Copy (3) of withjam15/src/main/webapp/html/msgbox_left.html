@@ -1,0 +1,82 @@
+<style>
+
+
+</style>
+
+
+<script>
+
+/* function takemsgFunction() {
+	document.getElementById("sendmsgtable").style.display = "none";
+	document.getElementById("takemsgtable").style.display = "";
+	$(".msg-detail").hide();
+	
+	$.getJSON('/withjam15/json/auth/loginUser.do', function(data) {
+		if (data.status == 'fail') {
+			console.log('loginUser fail..');
+		} else {
+			var loginUser = data.loginUser;
+			
+			console.log(loginUser);
+
+			$.getJSON('../json/message/takeMsgBox.do?uid='
+					+ loginUser.uid , function(data) {
+				console.log(data);
+				require([ 'text!templates/takeMsgBox.html' ], function(
+						html) {
+					var template = Handlebars.compile(html);
+					$('#takemsgtable').html(template(data));
+				});
+			});
+		}
+	});	
+	
+	
+} */
+
+
+function TakeMsgBox(){
+	$.getJSON('../json/message/takeMsgBox.do'
+			, function(data) {
+			/* console.log(data); */
+			
+			require([ 'text!templates/take1-takeMsgBox.html' ], function(
+					html) {
+				var template = Handlebars.compile(html);
+				$('.msg-center').html(template(data));
+			});
+		});
+}
+
+function SendMsgBox(){
+	$.getJSON('../json/message/sendMsgBox.do'
+			, function(data) {
+			/* console.log(data); */
+			require([ 'text!templates/take1-sendMsgBox.html' ], function(
+					html) {
+				var template = Handlebars.compile(html);
+				$('.msg-center').html(template(data));
+			});
+		});
+}
+	
+$('.send-msg-link').click(function(){
+	SendMsgBox();
+});
+
+$('.take-msg-link').click(function(){
+	TakeMsgBox();
+});
+
+
+
+</script>
+
+<!-- <div class='msg-header'>
+   <div class='msg-icon-div'><img src='../img/msg-w.png'></div> 
+   <a class='take-msg-link'>받은 메시지함</a><a class='send-msg-link'>보낸 메시지함</a><a class='for-check-delete'>삭제</a>
+</div>
+<div class='msg-center'>
+</div>
+<div class='msg-bottom'>
+</div> -->

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+html,body{
+  width: 100%;
+  height: 100%;
+  background: gray;
+  overflow: scroll;
+}
+
+a{
+  cursor: pointer;
+}
+
+
+
+/* 오른쪽 추천 사이드 메뉴 */ 
+
+#recommend-side{
+  width: 30%;
+  /* height: 100%; */
+  background: white;
+  float: right;
+  /* overflow: hidden; */
+}
+
+/* 추천 음원 */
+
+#recommend-sound{
+  border-bottom: 1px #999 solid;
+  width: 90%;
+  height: 400px;
+  margin-top: 70px;
+  float: right;
+}
+
+#recommend-sound-header{
+  border-bottom: 1px #999 solid;
+  width: 100%;
+  height:20px; 
+  color: #999;
+}
+
+.recommend-sound-source{
+  border-bottom: 1px #999 solid;
+  width: 100%;
+  height: 90px; 
+}
+
+
+.recommend-sound-source:last-child{
+  border-bottom: 1px solid white;
+  width: 100%;
+  height: 90px; 
+}
+
+
+
+
+
+
+/* 추천 밴드 */ 
+
+
+#recommend-band{
+  border-bottom: 1px #999 solid;
+  width: 90%;
+  height: 400px;
+  margin-top: 70px;
+  float: right;
+}
+
+#recommend-band-header{
+  border-bottom: 1px #999 solid;
+  width: 100%;
+  height: 20px; 
+  color: #999;
+}
+
+.recommend-band-chart{
+  border-bottom: 1px #999 solid;
+  width: 100%;
+  height: 90px; 
+}
+
+
+.recommend-band-chart:last-child{
+  border-bottom: 1px solid white;
+  width: 100%;
+  height: 90px; 
+}
+
+
+
+</style>
+
+</head>
+<body>
+
+
+
+<div id='recommend-side'>
+
+<!-- 음원 추천 -->
+<div id='recommend-sound'>
+   <div id='recommend-sound-header'><a>test</a></div>
+   <div class='recommend-sound-source'></div>
+   <div class='recommend-sound-source'></div>
+   <div class='recommend-sound-source'></div>
+   <div class='recommend-sound-source'></div>
+</div>
+
+
+<div id='recommend-band'>
+   <div id='recommend-band-header'><a>test</a></div>
+   <div class='recommend-band-chart'></div>
+   <div class='recommend-band-chart'></div>
+   <div class='recommend-band-chart'></div>
+   <div class='recommend-band-chart'></div>
+</div>
+    
+    
+</div>
+
+</body>
+</html>

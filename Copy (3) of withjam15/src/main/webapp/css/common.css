@@ -1,0 +1,184 @@
+@CHARSET "UTF-8";
+
+
+.right-icon{
+padding-top:2px;
+}
+
+<!--쪽지함-->
+.msg-content  .setting-content{
+	padding:6px;
+}
+.correct-btn{
+float:right;
+margin-right:5px;
+}
+
+
+<!--dam myInfo -->
+#myInfo{
+
+	height:220px;
+  width:100px;
+	
+	border-radius : 0.5em;
+	background-color: white;
+	
+}
+#myPhoto_left{
+float:left;
+border-radius : 0.5em;
+height:70px; 
+width:70px;
+border-radius: 6px  0  0 6px;
+border-bottom:1px solid gray;
+}
+#userId_left{
+ margin-left: 71px;
+ height:20px;
+ width:65%;
+ background-color: #6592FF;
+ border-radius: 0 6px 0 0;
+opacity:0.7;
+
+padding:2px;
+border-right:1px solid gray;
+}
+#usermsg_left{
+	margin-left: 71px;
+	height:50px;
+  width:65%;
+	background-color: #CCDBFE;
+	
+	border-radius: 0 0 6px 0;
+opacity:0.7;
+padding:2px;
+border-bottom:1px solid gray;
+border-right:1px solid gray;
+}
+#button_myInfo{
+	margin-top:5px;
+	margin-right:5px;
+	float:right;
+}
+<!--dam recommend -->
+#table{ 
+display: table;
+width:300px;
+}
+.row{
+display: table-row;
+}  
+p{
+display: table-cell; 
+border:solid 1px gray; 
+padding: 3px; 
+}  
+
+
+<!--dam bookmark-->
+#bookmark_table{ 
+display: table;
+width:276px;
+}
+.row_left{
+}  
+
+.b_play{
+width:35px;
+height:30px;
+border:solid 1px gray; 
+float:left;
+display:inline;
+
+}
+.b_title{
+width:200px;
+height:30px;
+border:solid 1px gray; 
+float:left;
+display:inline;
+}
+.b_del{
+width:40px;
+height:30px;
+border:solid 1px gray; 
+float:left;
+display:inline;
+}
+.png{
+	width:25px;
+	height:25px;
+	
+}
+  
+<!--band 상세 -->
+
+#bandphotoleft{
+float:left;
+border-radius : 0.5em;
+
+float: left; width: 70px; height: 70px;
+border-radius: 6px  0  0 6px;
+border-bottom:1px solid gray;
+}
+#band_left{
+ margin-left: 71px;
+ border-bottom:1px solid gray;
+ height:20px;
+ width:65%;
+ border-radius: 0 6px 0 0;
+opacity:0.7;
+padding:2px;
+border-right:1px solid gray;
+ 
+}
+
+#bandmsg_left{
+	margin-left: 71px;
+	height:50px;
+  width:65%;
+  border-radius: 0 0 6px 0;
+opacity:0.7;
+padding:2px;
+border-bottom:1px solid gray;
+border-right:1px solid gray;
+}
+
+.bandmember{
+width:100px;float:left;border:1px solid gray;text-align:center;
+border-radius:5px;
+	
+}
+
+<!--친구 모달-->
+
+.friend-modal-content{
+width:600px;
+
+}
+
+.friend-modal{
+margin:4px;
+width:590px;
+height:530px;
+border:1px dashed gray;
+border-radius:6px;
+
+}
+.friend-modal-left{
+width:290px;
+float:left;
+
+margin:2px;
+
+}
+.friend-modal-right{
+width:290px;
+height:528px;
+float:left;
+border-left:1px dashed black;
+margin:2px;
+
+}
+

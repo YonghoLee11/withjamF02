@@ -1,0 +1,232 @@
+<style>
+
+.follow{
+ 
+  background: #E6E6E6;
+  width: 110px;
+  height: 25px;
+ 
+}
+
+.unfollow{
+  
+  background-color: #FA5858; 
+  width: 110px;
+  height: 25px;
+ 
+}
+
+</style>
+
+   <div style="height:30px;"></div>
+   <img class="myphotoleft" class="profileImg" src="../fileupload/{{myInfo.uphoto}}" style="width: 190px; height:190px;">
+            
+   <div class="userId_left"> <h3>{{myInfo.uname}}</h3> </div>
+   <div class="usermsg_left" style="white-space: pre; color: silver;"><p>{{myInfo.comment}}</p></div>
+         <br><br>
+         <div style="height:70px;">
+         <button class="btnFollow {{myInfo.followYN}}"   data-followYN='{{myInfo.followYN}}' style='border-radius: 5px;'
+                 data-fUid='{{myInfo.uid}}' > </button>
+         <button class="btn btn-primary btn-xs" data-toggle="modal" data-target=".bs-example-modal-sm" 
+        data-uid='{{myInfo.uid}}' data-uname='{{myInfo.uname}}'
+        style="background: silver;width:70px;height:25px;margin-bottom: 5px;border-radius: 5px;">message</button>
+         <table  class="table" style="width:190px;text-align:center;">
+            <tbody><tr>
+               <th><img src="../img/search1.png" style="width:35px;height:35px;"></th>
+               <th><a data-uid={uid}>{{myInfo.boardCnt}}</a></th>
+            </tr>
+            
+            <tr>
+            <th><img src="../img/follow1.png" style="width:35px;height:35px;">   </th>
+            <th><a class="followbtn" style="cursor:pointer">{{myInfo.followCnt}}</a></th>
+            </tr>
+            
+            <tr>
+                  <th><img src="../img/follower1.png" style="width:35px;height:35px;">   </th>
+            <th><a class="follower" data-uid='{{myInfo.uid}}'style="cursor:pointer">{{myInfo.followerCnt}}</a></th></tr>
+
+         </tbody></table>
+         </div>
+
+
+ 
+ 
+ 
+
+ 
+ 
+
+<script>	
+
+if($('.btnFollow').attr('data-followYN')=='follow'){
+	
+	$('.btnFollow').html('unfollow');
+}else{
+	
+	$('.btnFollow').html('follow');
+}
+	
+
+
+$(".btnFollow").click(
+		function() {
+			var btnFollow = $(this);
+			$.getJSON('/withjam15/json/auth/loginUser.do', function(data) {
+				if (data.status == 'fail') {
+					console.log('loginUser fail..');
+				} else {
+					var loginUser = data.loginUser;
+					
+					if(btnFollow.attr('class') =='btnFollow follow'){
+					
+					console.log(loginUser);
+
+					$.getJSON('../json/friend/FriendDelete.do?uid='
+							+ loginUser.uid + '&fUid='
+							+ btnFollow.attr('data-fUid'), function(data) {
+						if (data.status == 'success') {
+							console.log('delete success..');
+							btnFollow.removeClass('follow');
+							btnFollow.addClass('unfollow');
+							OtherInfo(btnFollow.attr('data-fUid'));
+						} else {
+							console.log('delete fail..');
+						}
+					});
+					}else{
+						$.getJSON('../json/friend/FriendAdd.do?uid='
+								+ loginUser.uid + '&fUid='
+								+ btnFollow.attr('data-fUid'), function(data) {
+							if (data.status == 'success') {
+								console.log('add success..');
+								btnFollow.removeClass('unfollow');
+								btnFollow.addClass('follow');
+								OtherInfo(btnFollow.attr('data-fUid'));
+							} else {
+								console.log('add fail..');
+							}
+						});	
+					}
+				}
+			});
+			
+			
+			
+		});
+
+
+
+$('.btn-primary').click(function(){
+	console.log($(this).attr('data-uname'));
+	$('.for-sendMsgUname').val($(this).attr('data-uname'));
+	$('.msgSendBtn').attr('data-uid',$(this).attr('data-uid'));
+	console.log($('.msgSendBtn').attr('data-uid'));
+});
+
+
+$(document).on('click','.follower',function(){
+  
+  var marginLeft = $("#recommend-side-otherFollower").css("margin-left");
+  console.log("marginLeft==> " + marginLeft);
+
+  if( marginLeft == '0px'){
+     $("#recommend-side-otherFollower").animate({ "margin-left": '-30%' }, 1000 ,function(){}); 
+     
+  }else {
+     $("#recommend-side-otherFollower").animate({ "margin-left": '0%' }, 1000 ,function(){}); 
+  }
+
+});
+
+
+$(document).on('click','.followbtn',function(){
+	  
+	  var marginLeft = $("#recommend-side-otherFollow").css("margin-left");
+	  console.log("marginLeft==> " + marginLeft);
+
+	  if( marginLeft == '0px'){
+	     $("#recommend-side-otherFollow").animate({ "margin-left": '-30%' }, 1000 ,function(){}); 
+	     
+	  }else {
+	     $("#recommend-side-otherFollow").animate({ "margin-left": '0%' }, 1000 ,function(){}); 
+	  }
+
+	});
+
+
+/*바탕 클릭하면 들어감 */
+$(".divHeight").click(function(){
+	var marginLeft2 = $("#recommend-side-otherFollow").css("margin-left");
+   var marginLeft = $("#recommend-side-otherFollower").css("margin-left");
+   var marginLeft1 = $("#recommend-side-other-band").css("margin-left");
+	 if( marginLeft == '0px'){
+   /*   $("#recommend-side").animate({ "margin-left": '-25%' }, 1000 ,function(){});  */
+     
+  }else {
+    $("#recommend-side-otherFollower").animate({ "margin-left": '0%' }, 1000 ,function(){});  
+  } 
+	 if( marginLeft1 == '0px'){
+	   /*   $("#recommend-side").animate({ "margin-left": '-25%' }, 1000 ,function(){});  */
+	     
+	  }else {
+	    $("#recommend-side-other-band").animate({ "margin-left": '0%' }, 1000 ,function(){});  
+	  } 
+	 
+	 if( marginLeft2 == '0px'){
+		   /*   $("#recommend-side").animate({ "margin-left": '-25%' }, 1000 ,function(){});  */
+		     
+		  }else {
+		    $("#recommend-side-otherFollow").animate({ "margin-left": '0%' }, 1000 ,function(){});  
+		  } 
+	 
+	 
+});
+/*밴드 	버튼 클릭하면 오른쪽 나옴 */
+/* $('.band-detail-btn').click(function(){
+  
+  var marginLeft = $("#recommend-side-other-band").css("margin-left");
+  console.log("marginLeft==> " + marginLeft);
+
+  if( marginLeft == '0px'){
+     $("#recommend-side-other-band").animate({ "margin-left": '-25%' }, 1000 ,function(){}); 
+     
+  }else {
+     $("#recommend-side-other-band").animate({ "margin-left": '0%' }, 1000 ,function(){}); 
+  }
+
+}); */
+
+/* 
+function OtherFollowList(fUid) {
+	$('#myInfo4').show();
+	$('.follower').hide();
+	$('.band-detail').hide();
+	$('.following').show();
+	
+	$.getJSON('/withjam16/json/auth/loginUser.do', function(data) {
+		if (data.status == 'fail') {
+			console.log('loginUser fail..');
+		} else {
+			var loginUser = data.loginUser;
+
+	$.getJSON('../json/friend/otherFollowList.do?uid=' + loginUser.uid + '&fUid=' + fUid, function(data) {
+		console.log(data.friends);
+		require([ 'text!templates/otherFollow.html' ], function(html) {
+			var template = Handlebars.compile(html);
+			$('.following').html(template(data));
+		});
+	});
+	}
+	});
+}
+
+
+$("#following").click(function(){
+	console.log($(this).attr('data-uid'));
+	OtherFollowList($(this).attr('data-uid'));
+}); */
+
+
+
+
+</script>

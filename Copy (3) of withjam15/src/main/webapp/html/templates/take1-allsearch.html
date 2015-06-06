@@ -1,0 +1,152 @@
+<style>
+.searchlist-icon-div{
+	float:right;margin-right:10px;
+	width: 25px;
+height: 25px;
+}
+
+.members{
+/* width:30px;height:30px;float:right;margin-right:10px;opacity:.6; */
+background-image: url("../img/search2-w.png");
+width: 25px;
+height: 25px;
+}
+.board{
+/* width:30px;height:30px;float:right;margin-right:10px;opacity:.6; */
+background-image: url("../img/search1-w.png");
+width: 25px;
+height: 25px;
+}
+
+.band{
+/* width:30px;height:30px;float:right;margin-right:10px;opacity:.6; */
+background-image: url("../img/search3-w.png");
+width: 25px;
+height: 25px;
+}
+
+.search-key-word{
+  color: white;
+}
+</style>
+
+
+{{#each searchList}}
+<div style="width:500px;height:50px;padding:10px;" class='search-listDiv' 
+     data-searchInfo='{{UNAME}}' data-uid={{UID}} data-sort={{SORT}}>
+
+<img src="{{UPHOTO}}"  style="width:30px;height:30px;margin-left:5px;">
+<span style="margin-left:5px;"><label>{{UNAME}}</label></span>
+<div class='searchlist-icon-div'><img class='{{SORT}}'></div>
+<!-- <img src="../img/search1-w.png"  style="width:30px;height:30px;float:right;margin-right:10px;opacity:.6;"> -->
+</div>
+{{/each}}
+
+
+<script>
+/* console.log('test'+$("#allsearch").val()); */
+
+$('.search-listDiv').click(function() {
+	/* console.log($(this).attr('data-searchInfo')); */
+	var searchInfo = $(this).attr('data-searchInfo');
+    console.log(searchInfo);
+    
+    
+	$('.for-allSearch').val($(this).attr('data-searchInfo'));
+
+	SearchInsert(searchInfo); 
+	
+	realTimeSearchRancking();
+	
+	var datasearchInfo = $(this).attr('data-searchInfo');
+	console.log($(this).attr('data-searchInfo')+'oo');
+	
+	var fUid = $(this).attr('data-uid');
+	console.log(fUid);
+	
+	if($(this).attr('data-sort')=='members'){
+		
+		OtherInfo($(this).attr('data-uid'));
+		
+		        
+		
+
+				$.getJSON('../json/board/OtherBoardList.do?uid=' + fUid, function(data) {
+					console.log(data);
+					
+					require([ 'text!templates/innerContent.html' ], function(
+							html) {
+						var template = Handlebars.compile(html);
+						$('#list-side').html(template(data));
+					});
+				}); 
+				
+		
+		
+		$.getJSON('../json/friend/myFollowerList.do?uid='+ fUid, function(data) {
+			console.log(data);
+			
+			require([ 'text!templates/function-my-follower.html' ], function(
+					html) {
+				var template = Handlebars.compile(html);
+				$('#recommend-side-otherFollower').html(template(data));
+			});
+		});
+		
+		
+		$.getJSON('../json/friend/myFollowList.do?uid='+ fUid, function(data) {
+			console.log(data);
+			
+			require([ 'text!templates/function-my-follower.html' ], function(
+					html) {
+				var template = Handlebars.compile(html);
+				$('#recommend-side-otherFollow').html(template(data));
+			});
+		});
+		
+		
+		/* OtherInfo($(this).attr('data-uid')); */	
+	}else if($(this).attr('data-sort')=='band'){	
+		
+				console.log($(this).attr('data-uid') + 'bandnotest');	
+				$.getJSON('../json/band/myBandListDetail.do?uid='
+						+ $(this).attr('data-uid') + '&bandName=' + datasearchInfo
+					, function(data) {
+					console.log(data);
+					require([ 'text!templates/take3-SearchBand.html' ], function(
+							html) {
+						var template = Handlebars.compile(html);
+						$('#recommend-side-band').html(template(data));
+					});
+			
+		});  
+		
+		
+		var marginLeft = $("#recommend-side-band").css("margin-left");
+		   console.log("marginLeft==> " + marginLeft);
+
+		   if( marginLeft == '0px'){
+		      $("#recommend-side-band").animate({ "margin-left": '-25%' }, 1000 ,function(){}); 
+		      
+		   }else {
+		      $("#recommend-side-band").animate({ "margin-left": '0%' }, 1000 ,function(){}); 
+		   }
+		
+		
+	}	
+
+});
+
+
+function realTimeSearchRancking(){
+	$.getJSON('../json/search/realTimeSearchRancking.do', function(data) {
+		console.log(data.chartList);
+		require([ 'text!templates/realTimeSearchRancking.html' ], function(
+				html) {
+			var template = Handlebars.compile(html);
+			$('.real-time-search-list').html(template(data));
+		});
+	});
+}
+
+</script>

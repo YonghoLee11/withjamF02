@@ -1,0 +1,101 @@
+<!-- <img src=""../fileupload/{{bPhoto}}" -->
+
+             
+             
+ 
+ <div style="font-size:15px;font-weight:bold;color:black;">■ Myband ■</div>
+<img src="../fileupload/{{myBandListDetail.bPhoto}}" style="width:90px;height:90px;float:left;margin:5px;">
+<div style="/* border:1px solid white; */margin-left:100px;margin-top:5px;padding:5px;width:200px;border-radius:3px;">
+	<div style="font-weight:bold;"><div style="background-color:white;border-radius:3px;text-align:center;">{{myBandListDetail.bandName}}</div></div>
+  <!-- <div style="font-weight:bold;">장르 : {{myBandListDetail.genreNo}}</div> -->
+  {{myBandListDetail.bPhoto}} ..
+  <div style="font-weight:bold;">코멘트 : {{myBandListDetail.bandComment}}</div>
+  <div style="font-weight:bold;">밴드창립일 : {{myBandListDetail.bandDate}}</div>
+</div>
+<div style="height:10px;"></div>
+  <button class="btn btn-warning btn-xs go-band" style="width:280px;margin-left:10px;">밴드글보러가기</button>
+<div style="height:10px;"></div>
+ <div style="font-size:15px;font-weight:bold;color:black;"> </div>
+	<div class="scrollBar" style="border:1px solid white;margin:5px;padding:5px;width:300px;height:450px;">	 
+		<div>밴드멤버</div>
+		{{#each myBandMember}}
+		    <img src="../fileupload/{{uphoto}}" style="width:90px;height:90px;">
+			<div id='member-list-detail-div'  data-searchInfo='{{UNAME}}'style="	width:100%; height:110px; float:left;margin:5px;">
+		<div class='member-photo'><img src="../fileupload/{{uphoto}}" style="width:90px;height:90px;"></div>
+	
+		<!-- hoverevent div -->
+<div class='hover-info {{uname}}'
+             style="width:170px; height:110px;/* border: solid gray 1px; */ position: absolute; left: 155px;
+             z-index: 10000; /*  background: white; */ 	background-image: url('../img/777.png'); 
+             word-wrap:break-word;padding:20px;border-radius:5px;">
+<!--              <label style="font-weight:bold;">이름  {{uname}}</label><br> -->
+             <label style="color:gray;">{{comment}}</label><br>
+           <!--   <label style="color:gray;">밴드가입일  {{bJoinDate}}</label><br> -->
+             
+             <label></label>
+             
+         </div>
+  <!-- hoverevent div끝 -->
+	
+	
+		<div class='member-info-name' ><h5><a class='uname' data-fUid='{{fUid}}' data-uname='{{uname}}'>{{uname}}</a></h5></div>
+		<div class='member-info-etc'>
+		
+		<div style="margin:5px;">
+		<img src="../img/search1.png" style="width:20px;height:20px;"> {{boardCnt}} ||
+		<img src="../img/follow.png" style="width:20px;height:20px;">{{followerCnt}}
+		</div>
+		</div>
+	</div>
+	
+		
+		{{/each}}
+
+</div>
+        
+
+<script>
+
+/* 사진 클릭하면 레프트사이드에 친구정보 보이기 */
+$('.uname').click(function() {
+	console.log($(this).attr('data-fUid'));
+	OtherInfo($(this).attr('data-fUid'));
+/* 		OtherFollowList($(this).attr('data-fUid')); */
+});
+
+/*뒷부분은 레프트ㅡ사이드에 있음 */
+
+
+
+/* hover*/
+  $('.hover-info').hide();
+     
+	$('.uname').mouseenter(function(){
+		/* $('.hover-info').css('display',''); */
+		var uname = $(this).attr('data-uname');
+		console.log(uname+'...mouseenter');
+		/* $('.hover-info').show(); */
+		$('.'+uname).show();
+	});
+	
+	$('.hover-info').mouseenter(function(){
+		$(this).show();
+	});
+	
+	$('.hover-info').mouseleave(function(){
+		$(this).hide();
+	});
+	
+	$('.uname').mouseleave(function(){
+		var uname = $(this).attr('data-uname');
+		console.log(uname+'...mouseleave');
+		$('.'+uname).hide();
+	});
+ /*hover끝*/
+	
+	
+ 
+
+	
+</script>
+

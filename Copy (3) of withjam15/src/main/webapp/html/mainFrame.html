@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link rel='stylesheet' href='../css/bootstrap.min.css'>
+<link rel='stylesheet' href='../css/bootstrap-theme.min.css'>
+<link rel='stylesheet' href='../css/bootstrap-theme.css.map'>
+<link rel="stylesheet" href="mainFrame.css">
+
+<script type="text/javascript" src='../js/handlebars-v2.0.0.js'></script>
+<!-- <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>  -->
+<script src='../js/jquery-1.11.1.js'></script> 
+<script src='jquery-form.js'></script>
+<script type="text/javascript" src='../js/require.js'></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/modernizr.custom.js"></script>
+<script src="../js/jquerypp.custom.js"></script>
+<script src="../js/recordmp3js/recordmp3.js"></script>
+<script type="text/javascript" src='leftSide.js'></script>	
+
+<meta charset="UTF-8">
+
+<title>위잼</title>
+<style type="text/css">
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+body{font-family:'Nanum Gothic';}
+/* .Border_M{
+border: 1px solid #1e1e1e;
+}
+ */
+ 
+ a{
+ color: #FA5858;
+}
+ 
+.for-msgConfirmCnt{
+  height: 20px;
+  width: 20px;
+  position: fixed;
+  top: 27px;
+  left: 85%;
+  /* border: 1px red solid; */
+  background: red;
+  z-index: 10000;
+  border-radius:100px;
+  color: white; 
+  text-align: center;
+}
+
+
+.headerLayer{
+  width: 100%;
+  background: #1e1e1e;
+  height: 7%;
+  position: fixed;
+  left: 0;
+  right: 0;
+}
+
+.header-shadow{
+	width: 100%;
+	height: 7%;
+} 
+
+.for-left-view{
+    width: 20%;
+    height: 93%;
+    /* border: 1px solid red; */
+    position: fixed;
+    left: 6%;
+    z-index: 1;
+    top: 7%;
+    background: white;
+}
+
+.for-right-view{
+    width: 27%;
+    height: 93%;
+    /* border: 1px solid red; */
+    position: fixed;
+    left: 66%;
+    z-index: 1;
+    top: 7%;
+    padding: 5%;
+    background-color: white;
+}
+
+a{
+    cursor: pointer;
+}
+
+
+.for-recomendDiv{
+  width: 100%;
+  height: 27%;
+ /*  border-bottom: 1px solid silver; */
+  /* margin-top: 20%; */
+  border-top: 1px solid silver;
+} 
+
+.setting-this{
+  width: 27%; height: 400px; margin-top: 47px; margin-left: 66%; padding:10px;
+display: none; color: rgb(132, 132, 132); border: 1px solid #585858; position: fixed; z-index:100; font-size: 12px;
+background-color: rgb(51, 51, 51);
+}
+
+.msg-this{
+ width: 27%; height: 400px; margin-top: 47px; margin-left: 66%; padding:10px; font-size: 12px;
+display: none; color: rgb(132, 132, 132); border: 1px solid #585858; z-index: 200; position: fixed;
+background-color: rgb(51, 51, 51);
+}
+
+.search-this{
+ width: 510px; 
+ height: 300px; 
+ margin-top: 47px; 
+ z-index:100;
+ left: 26%; 
+ display: none; 
+ position: fixed; 
+ color: rgb(132, 132, 132); 
+ font-size: 12px;
+ border: 1px solid rgb(51, 51, 51); 
+ text-shadow: rgb(0, 0, 0) 2px 2px; 
+ background-color: rgb(51, 51, 51);
+ overflow: auto;
+ overflow-x:none;
+ overflow-y:none;
+}
+
+.band1-this{
+ width: 27%; height: 400px; margin-top: 47px; margin-left: 66%; font-size: 12px;
+display: none; color: rgb(132, 132, 132); border: 1px solid #585858; z-index: 200; position: fixed;
+background-color: rgb(51, 51, 51);
+}
+
+
+.msg-header{
+
+  width: 100%;
+  height: 55px;
+  border-bottom: #1e1e1e 1px solid;
+   
+}
+
+.msg-icon-div{
+  width: 25px;
+  height: 25px;
+}
+
+.msg-icon-div>img{
+  width: 100%;
+  height: 100%;
+}
+
+.msg-header>a{
+  margin-left: 25px;
+  color: silver;
+  margin-top: 10px;
+}
+
+.msg-header>a:nth-child(4){
+  margin-left: 120px;
+  color: white;
+}
+
+
+.msg-center{
+  width: 100%;
+  height: 160px;
+  border-bottom: #1e1e1e 1px solid;
+  border-top: 1px solid #585858;
+  overflow: auto;
+  overflow-x:none;
+  overflow-y:none;
+}
+
+.msg-bottom{
+  width: 100%;
+  height: 160px;
+  border-bottom: #1e1e1e 1px solid;
+  border-top: 1px solid #585858;
+  overflow: auto;
+  overflow-x:none;
+  overflow-y:none;
+}
+
+
+.modal-content{
+  top:100px;
+  width: 510px; height: 300px;
+}
+
+.btn-primary{
+  background: #FA5858 !important;
+}
+
+
+/* #recommend-side{
+	margin-top:50px;
+  width: 30%;
+  height: 100%;
+  background: #e7e7e7;
+  z-index:1000;
+  position: fixed;
+  left: 100%; 
+  top: 0;
+  float: right;
+   overflow: scroll;
+} */
+
+
+.for-recomendList-div{
+  width: 100%;
+  height: 30%;
+  border-bottom: 1px solid silver;
+}
+
+.for-recomFollowerImg{
+
+}
+ 
+</style>
+
+
+</head>
+<body>
+    
+ <div class="search-this" style="">
+ <div ><label>Search For...  </label><label class='search-key-word'></label></div>
+ <div class='for-search-this'></div> 
+ 
+ </div>
+ 
+ 
+ <!-- 밴드만들기 -->
+<div class="band1-this" style=""></div>
+<!-- 쪽지 -->
+<div class="msg-this" style="">
+
+<div class='msg-header'>
+   <div class='msg-icon-div'><img src='../img/msg-w.png'></div> 
+   <a class='take-msg-link'>받은 메시지함</a><a class='send-msg-link'>보낸 메시지함</a><a class='for-check-delete'>삭제</a>
+</div>
+<div class='msg-center'>
+</div>
+<div class='msg-bottom'>
+</div>
+
+
+</div>
+ 
+ 
+ <!-- 설정 -->
+<div class="setting-this"></div>
+<div class="logout-this"></div>
+    
+    
+	<div class='headerLayer'>
+	
+	</div>
+
+	<div class='header-shadow'> <!-- 헤더 화면 씹힘 방 레이어-->
+    
+    </div> 
+	
+	<div class=" divHeight">
+
+		<div id="leftSide">
+		<div class='for-left-view'>  <!-- 왼쪽 픽스 레이어. -->
+      
+        </div>
+		</div>
+
+
+		<div id="list-side"></div>
+
+
+		<div id="rightSide">	</div>
+		<div id="recommend-side-follower" ></div>
+		<div id="recommend-side-follow" ></div>
+		<div id="recommend-side-other" ></div> 
+		<div id="recommend-side-band" ></div> 
+		<div id="recommend-side-other-band"  ></div>
+		<div id="recommend-side-otherFollower" ></div>
+		<div id="recommend-side-otherFollow" ></div>
+		
+		<div class='for-msgConfirmCnt'></div>
+		
+
+    <div class='for-slide-div'>
+    
+    </div>  
+    
+    <div id="playerSide"> </div>
+    
+    
+    
+    <div class='for-left-view'>  <!-- 왼쪽 픽스 레이어. -->
+      
+    </div>
+    
+    <div class='for-right-view'>  <!-- 오른쪽 픽스 레이어. -->
+      <div style='display: inline-block;height: 5%;color: silver; font-size: 12px;'>
+      <label>Who To Follow</label>    
+           <img src='../img/refresh2.png' style="margin-left: 105px;">
+      </div>
+      
+      
+      <div class='for-recomendDiv'>
+      
+        <div class='for-recomendList-div'>
+          <div style="height: 100%;width: 18%;float: left;"><img class='' src='../img/kimgommo.jpeg' style="width: 100%;height: 100%;"></div>
+          <div style="float: left;width: 65%;height: 50%; margin-left: 10px;">김건모</div>
+          <div style="float: left;width: 65%;height: 50%; color: silver;margin-left: 10px;">
+            <div class='' style='width:35%;height: 100%;float: left;'><img class='for-recomFollowerImg' src='../img/search1.png' style="width: 20%;height: 80%;">7</div>
+            <div class='' style='width:35%;height: 100%;float: left;'><img class='for-recomFollowerImg' src='../img/follow.png' style="width: 20%;height: 80%;">1098</div>
+          </div>
+        </div>
+  
+
+      <div class='for-recomendList-div'>
+         <div style="height: 100%;width: 18%;float: left;"><img class='' src='../img/yooseyoon.jpg' style="width: 100%;height: 100%;"></div>
+         <div style="float: left;width: 65%;height: 50%; margin-left: 10px;">유세윤</div>
+         <div style="float: left;width: 65%;height: 50%; color: silver;margin-left: 10px;">
+          <div class='' style='width:35%;height: 100%;float: left;'><img class='for-recomFollowerImg' src='../img/search1.png' style="width: 20%;height: 80%;">20</div>
+          <div class='' style='width:35%;height: 100%;float: left;'><img class='for-recomFollowerImg' src='../img/follow.png' style="width: 20%;height: 80%;">301</div>
+         </div>
+      </div>
+
+
+      <div class='for-recomendList-div'>
+         <div style="height: 100%;width: 18%;float: left;"><img class='' src='../img/bin.jpg' style="width: 100%;height: 100%;"></div>
+         <div style="float: left;width: 65%;height: 50%; margin-left: 10px;">원빈</div>
+         <div style="float: left;width: 65%;height: 50%; color: silver;margin-left: 10px;">
+           <div class='' style='width:35%;height: 100%;float: left;'><img class='for-recomFollowerImg' src='../img/search1.png' style="width: 20%;height: 80%;">9</div>
+          <div class='' style='width:35%;height: 100%;float: left;'><img class='for-recomFollowerImg' src='../img/follow.png' style="width: 20%;height: 80%;">353</div>
+         </div>
+      </div>
+      
+      </div>
+      
+      
+      <div style='display: inline-block;height: 5%;color: silver; font-size: 12px;'>
+      <label>Recommendation Music</label>    <img src='../img/refresh2.png' style="margin-left: 53px;">
+      </div>
+      <div class='for-recomendDiv'>
+      
+      <div class='for-recomendList-div'>
+          <div style="height: 100%;width: 18%;float: left;"><img class='' src='../img/walchu.jpg' style="width: 100%;height: 100%;"></div>
+          <div style="float: left;width: 65%;height: 50%; margin-left: 10px;">with waltz</div>
+          <div style="float: left;width: 65%;height: 50%; color: silver;margin-left: 10px;">
+            <div class='' style='width:35%;height: 100%;float: left;'><img class='for-recomFollowerImg' src='../img/like.png' style="width: 20%;height: 80%;">504</div>
+          <div class='' style='width:35%;height: 100%;float: left;'><img class='for-recomFollowerImg' src='../img/play-icon.jpg' style="width: 20%;height: 80%;">353</div>
+          </div>
+        </div>
+  
+
+      <div class='for-recomendList-div'>
+         <div style="height: 100%;width: 18%;float: left;"><img class='' src='../img/metal.jpeg' style="width: 100%;height: 100%;"></div>
+         <div style="float: left;width: 65%;height: 50%; margin-left: 10px;">heavy metal</div>
+         <div style="float: left;width: 65%;height: 50%; color: silver;margin-left: 10px;">
+          <div class='' style='width:35%;height: 100%;float: left;'><img class='for-recomFollowerImg' src='../img/like.png' style="width: 20%;height: 80%;">338</div>
+          <div class='' style='width:35%;height: 100%;float: left;'><img class='for-recomFollowerImg' src='../img/play-icon.jpg' style="width: 20%;height: 80%;">529</div>
+         </div>
+      </div>
+
+
+      <div class='for-recomendList-div'>
+         <div style="height: 100%;width: 18%;float: left;"><img class='' src='../img/jonhyo.jpeg' style="width: 100%;height: 100%;"></div>
+         <div style="float: left;width: 65%;height: 50%; margin-left: 10px;">secret</div>
+         <div style="float: left;width: 65%;height: 50%; color: silver;margin-left: 10px;">
+           <div class='' style='width:35%;height: 100%;float: left;'><img class='for-recomFollowerImg' src='../img/like.png' style="width: 20%;height: 80%;">504</div>
+          <div class='' style='width:35%;height: 100%;float: left;'><img class='for-recomFollowerImg' src='../img/play-icon.jpg' style="width: 20%;height: 80%;">785</div>
+         </div>
+      </div>
+      
+      </div>
+      
+      
+      <div style='display: inline-block;height: 5%;color: silver; font-size: 12px;'>
+      <label>Band Activity</label>    <img src='../img/refresh2.png' style="margin-left: 113px;">
+      </div>
+      
+      <div class='for-recomendDiv'>
+      
+      <div class='for-recomendList-div'>
+          <div style="height: 100%;width: 18%;float: left;"><img class='' src='../img/crazyboy.jpeg' style="width: 100%;height: 100%;"></div>
+          <div style="float: left;width: 65%;height: 50%; margin-left: 10px;">crazy boy</div>
+          <div style="float: left;width: 65%;height: 50%; color: silver;margin-left: 10px;">
+            <div class='' style='width:35%;height: 100%;float: left;'><img class='for-recomFollowerImg' src='../img/search3.png' style="width: 20%;height: 80%;">305</div>
+          </div>
+        </div>
+  
+
+      <div class='for-recomendList-div'>
+         <div style="height: 100%;width: 18%;float: left;"><img class='' src='../img/hero.jpeg' style="width: 100%;height: 100%;"></div>
+         <div style="float: left;width: 65%;height: 50%; margin-left: 10px;">super hero</div>
+         <div style="float: left;width: 65%;height: 50%; color: silver;margin-left: 10px;">
+          <div class='' style='width:35%;height: 100%;float: left;'><img class='for-recomFollowerImg' src='../img/search3.png' style="width: 20%;height: 80%;">498</div>
+         </div>
+      </div>
+
+
+      <div class='for-recomendList-div'>
+         <div style="height: 100%;width: 18%;float: left;"><img class='' src='../img/muz.jpeg' style="width: 100%;height: 100%;"></div>
+         <div style="float: left;width: 65%;height: 50%; margin-left: 10px;">뮤즈</div>
+         <div style="float: left;width: 65%;height: 50%; color: silver;margin-left: 10px;">
+           <div class='' style='width:35%;height: 100%;float: left;'><img class='for-recomFollowerImg' src='../img/search3.png' style="width: 20%;height: 80%;">237</div>
+         </div>
+      </div>
+      
+      </div>
+      
+    </div>
+    
+    
+    <!-- 쪽지 모달.. -->
+
+     <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+     <div class="modal-dialog modal-sm">
+     <div class="modal-content">
+      <h3 style="border-bottom: 1px solid silver;">New Meassage</h3>
+      <br>
+      To<br>
+      <input type='text' style="margin-left: 20px;width: 90%;" class='for-sendMsgUname' data-uid=''>
+      <br>
+      Title<br>
+      <input type='text' style="margin-left: 20px;width: 90%;" class='for-sendMsgTitle' data-uid=''>
+      <br>
+      메시지를 입력해 주세요.
+      <br>
+      <textarea rows="" cols="" style="margin-left: 20px;width: 90%;height: 25%;" class='for-msgContent'></textarea>
+      <button style='color: #FA5858;margin-left: 85%' class='msgSendBtn' data-uid=''>send</button>
+     </div>
+    </div>
+    </div>
+
+</div>
+	<script>
+
+	/* $.getJSON('../json/board/BoardList.do'
+				, function(data) {
+				console.log(data);
+				require([ 'text!templates/take1-boardList.html' ], function(
+						html) {
+					var template = Handlebars.compile(html);
+					$('#list-side').html(template(data));
+				});
+	});  */
+	
+	
+	
+	$('.msgSendBtn').click(function(){
+
+		
+		 $.post('../json/message/sendMsgInsert.do'
+			        , {
+			        	fUid : $(this).attr('data-uid'),
+			        	uname : $('.for-sendMsgUname').val(),
+			        	title : $('.for-sendMsgTitle').val(),
+			        	content : $('.for-msgContent').val()
+			        }
+			        , function(data){
+			          if (data.status == 'success') {
+			            console.log('send msg success..');
+			            alert('메세지가 전송 되었 습니다..');
+			          } else {
+			            console.log('message send fail..');
+			          }
+			        }
+			        , 'json');
+	});
+	
+
+	function TakeMsgBox(){
+		$.getJSON('../json/message/takeMsgBox.do'
+				, function(data) {
+				console.log(data);
+				
+				require([ 'text!templates/take1-takeMsgBox.html' ], function(
+						html) {
+					var template = Handlebars.compile(html);
+					$('.msg-center').html(template(data));
+				});
+			});
+	}
+	
+
+	function SendMsgBox(){
+		$.getJSON('../json/message/sendMsgBox.do'
+				, function(data) {
+				console.log(data);
+				require([ 'text!templates/take1-sendMsgBox.html' ], function(
+						html) {
+					var template = Handlebars.compile(html);
+					$('.msg-center').html(template(data));
+				});
+			});
+	}
+		
+	$('.send-msg-link').click(function(){
+		SendMsgBox();
+	});
+
+	$('.take-msg-link').click(function(){
+		TakeMsgBox();
+	});
+	
+	
+	
+	
+	    $('.send-message').hide(); 
+	    
+		$('.headerLayer').load('header.html');
+		$('#list-side').load('content_wn.html');
+		$('.for-left-view').load('leftSide.html');
+		$('#rightSide').load('rightSide.html');
+		MsgConfirmCnt();
+		realTimeSearchRancking();
+		
+		function realTimeSearchRancking(){
+			$.getJSON('../json/search/realTimeSearchRancking.do', function(data) {
+				console.log(data.chartList);
+				require([ 'text!templates/realTimeSearchRancking.html' ], function(
+						html) {
+					var template = Handlebars.compile(html);
+					$('.for-slide-div').html(template(data));
+				});
+			});
+		}
+
+		function SearchInsert(searchInfo) {
+			$.getJSON('/withjam15/json/auth/loginUser.do', function(data) {
+				if (data.status == 'fail') {
+					console.log('loginUser fail..');
+				} else {
+					var loginUser = data.loginUser;
+					/* console.log(fUname); */
+					$.post('../json/search/searchInsert.do', {
+						searchUid : loginUser.uid,
+						searchInfo : searchInfo
+					}, function(data) {
+						if (data.status == 'success') {
+							console.log('searchInsertSuccess..');
+						} else {
+							console.log('searchInsertFail..');
+						}
+					}, 'json');
+				}
+			});
+		}
+		
+function MsgConfirmCnt(){		
+		$.getJSON('../json/message/msgConfirmCnt.do'
+		   , function(data) {
+			if (data.status=='success'){
+				
+				if(data.forMsgConfirm.cnt==0){
+					$('.for-msgConfirmCnt').hide();
+				}else{
+					$('.for-msgConfirmCnt').show();
+				}
+				
+				$('.for-msgConfirmCnt').html(data.forMsgConfirm.cnt);
+				
+			}else{
+				console.log('msgDelete fail..');
+			}
+		});	
+}
+
+
+
+var slideWidth = 30;
+var currentSlider = 1;
+
+setInterval(function(){
+	
+	 $( ".slides" ).animate({ "margin-top": "-=" + slideWidth }, 2000 ,function(){
+		 
+		 currentSlider++;
+		 /* console.log(currentSlider); */
+		 if(currentSlider==$('.slide').length){
+			 $( ".slides" ).css('margin-top', 0);
+			 currentSlider=1;
+		 }
+	 });
+	 
+	
+	 
+},1000); 
+
+
+/*내 친구 오른쪽에 나오게함 */
+$.getJSON('/withjam15/json/auth/loginUser.do', function(data) {
+			if (data.status == 'fail') {
+				console.log('loginUser fail..');
+			} else {
+				var loginUser = data.loginUser;
+
+				$.getJSON('../json/friend/myFollowerList.do?uid='+ loginUser.uid, function(data) {
+					console.log(data);
+					require([ 'text!templates/function-my-follower.html' ], function(
+							html) {
+						var template = Handlebars.compile(html);
+						$('#recommend-side-follower').html(template(data));
+					});
+				});
+			}
+		});
+		
+		
+$.getJSON('/withjam15/json/auth/loginUser.do', function(data) {
+	if (data.status == 'fail') {
+		console.log('loginUser fail..');
+	} else {
+		var loginUser = data.loginUser;
+
+		$.getJSON('../json/friend/myFollowList.do?uid='+ loginUser.uid, function(data) {
+			console.log("-------------------");
+			console.log(data);
+			require([ 'text!templates/function-my-follow.html' ], function(
+					html) {
+				var template = Handlebars.compile(html);
+				$('#recommend-side-follow').html(template(data));
+			});
+		});
+	}
+});		
+
+
+/*친구의 친구 오른쪽에 나오게함 */
+
+/* 	$.getJSON('/withjam15/json/auth/loginUser.do', function(data) {
+	if (data.status == 'fail') {
+		console.log('loginUser fail..');
+	} else {
+		var loginUser = data.loginUser;
+
+$.getJSON('../json/friend/otherFollowerList.do?uid=' + loginUser.uid + '&fUid=' + fUid, function(data) {
+	console.log(data.friends);
+	console.log("친구의 친구 들어옴 ");
+	require([ 'text!templates/function-otherFollower.html' ], function(html) {
+		var template = Handlebars.compile(html);
+		$('#recommend-side-other').html(template(data));
+	});
+});
+}
+}); */
+
+
+
+function OtherInfo(fUid) {
+
+		$.getJSON('../json/friend/otherInfo.do?fUid=' + fUid, function(data) {
+			console.log(data.myInfo);
+			console.log("아더인포들어옴");
+			require([ 'text!templates/take3-otherInfo.html' ], function(html) {
+				var template = Handlebars.compile(html);
+				$('.my-info').hide();
+				$('.for-left-view').html(template(data));
+				$('.other-info').show();
+				
+			});
+		});
+	}
+	
+function yyyyMMdd(date) {
+	  if (date) {
+	    var date = new Date(date);
+	    var str = date.getFullYear() + '-';
+	    
+	    if (date.getMonth() < 9) str += '0';
+	    str += (date.getMonth() + 1) + '-';
+	    
+	    if (date.getDate() < 10) str += '0';
+	    str += date.getDate();
+	    
+	    return str;
+	    
+	  } else {
+	    return '';
+	  }
+	}	
+
+
+	</script>
+
+</body>
+</html>

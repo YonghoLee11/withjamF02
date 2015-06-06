@@ -1,0 +1,205 @@
+<style>
+.make-band-header{
+  width: 100%;
+  height: 30px;
+  border-bottom: #1e1e1e 1px solid;
+}
+
+
+
+
+.make-band-center{
+  width: 100%;
+  height:15%;
+  border-bottom: #1e1e1e 1px solid;
+  border-top: 1px solid #585858;
+}
+
+.band-for-label{
+  float: left;
+}
+
+.band-for-label2{
+  float: left;
+  margin-left: 7px;
+}
+
+.band-for-input{
+  float: left;
+  margin-left: 30px;
+  width: 250px;
+}
+
+.band-for-input2{
+  float: left;
+  margin-left: 30px;
+  width: 250px;
+}
+
+.band-for-div{
+  height: 30px;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.make-band-bottom{
+  width: 100%;
+  height: 15%;
+  border-bottom: #1e1e1e 1px solid;
+  border-top: 1px solid #585858;
+}
+
+.radio-for-secret{
+
+  margin-left: 44px;
+}
+
+.band-for-button-div{
+  width: 30%;
+  margin-left: 60%;
+}
+
+.band-for-button-div>button{
+  margin-left: 12px;
+}
+
+
+.make-band-photo{
+  width: 100%;
+  height:120px;
+  border-bottom: #1e1e1e 1px solid;
+  border-top: 1px solid #585858;
+}
+
+.for-band-photo-div{
+  width: 50%;
+  height: 100%;
+  border-right: #1e1e1e 1px solid;
+  float: left;
+}
+
+.for-band-photo-div>img{
+  width: 70%;
+  height: 80%;
+}
+
+.for-band-photo-label{
+  width: 48%;
+  height: 100%;
+  border-left: 1px solid #585858;
+   float: left;
+} 
+
+</style>
+<div class="make-band" >
+<div><img src='../img/search3-w.png'></div>
+			<div class='make-band-header'>
+		    회원님과 친구들을 위한 공유 그룹을 만들어 보세요.
+			</div>
+			
+			<form id="make-band-form" action="../json/band/makeBand.do" method="post" enctype="multipart/form-data">
+			<div class='make-band-photo'>
+			
+			   <div class='for-band-photo-div'><input type="file" class='for-band-photo-input' name='photoFile'>
+                 <img class='for-band-photo'></div>
+                 <div class='for-band-photo-label'>
+                 <br><br><br>회원님의 밴드 사진을 <br>
+                 등록 하는 공간입니다.<br>
+                 
+            </div>
+			
+			</div>
+			
+			<div class='make-band-center'>
+			
+			  <div class='band-for-div'>
+			  <label class='band-for-label'>밴드 이름: </label><div><input type='text' class='band-for-input' name='bandName'></div>
+			  </div>
+			  <div></div>
+			  
+			  <div class='band-for-div'>
+			  <label class='band-for-label2'>코 멘 트: </label><div>
+			  <input type='text' class='band-for-input2' placeholder="밴드에 대한 설명을 입력해주세요." name='comment'>
+			  </div>
+			  </div>
+			  <div></div>
+			  
+			</div>
+			
+			<div class='make-band-bottom'>
+			   <label class='band-for-label'>공개범위</label>
+			   
+		    <div class="radio">
+              <label>
+              <input type="radio" name="optionsRadios" id="optionsRadios1" value="1" checked>공개<br>
+              누구나 그룹과 그룹 멤버 및 게시물을 볼 수 있습니다.
+              </label>
+              </div>
+           <div class="radio radio-for-secret">
+              <label>
+              <input type="radio" name="optionsRadios" id="optionsRadios2" value="2">비밀<br>
+              그룹 멤버만 그룹과 게시물을 볼 수 있습니다.
+              </label>
+            </div>
+			   
+			</div>
+			
+			<div class='band-for-button-div'>
+			<button>취소</button>
+			<button>등록</button>
+			</div>
+    </form>			
+				
+</div>
+
+<script>
+
+
+$('#make-band-form').ajaxForm({
+	       
+	            beforeSubmit: function (data, frm, opt) {
+	                            /* alert("전송전!!"); */
+	                            return true;
+	                          },
+	            
+	            success: function(responseText, statusText){
+	                alert("즐거운 withjam 밴드활동 하세요 ^^ ");
+	            } ,
+	            
+	            error: function(){
+	                alert("에러발생!!");
+	            }                               
+	          });
+  
+  
+  $(document).ready(function(){
+		
+		
+		
+		
+	    function readURL(input) {
+	        if (input.files && input.files[0]) {
+	            var reader = new FileReader(); //파일을 읽기 위한 FileReader객체 생성
+	            reader.onload = function (e) {
+	            //파일 읽어들이기를 성공했을때 호출되는 이벤트 핸들러
+	                $('.for-band-photo').attr('src', e.target.result);
+	                //이미지 Tag의 SRC속성에 읽어들인 File내용을 지정
+	                //(아래 코드에서 읽어들인 dataURL형식)
+	            }                   
+	            reader.readAsDataURL(input.files[0]);
+	            //File내용을 읽어 dataURL형식의 문자열로 저장
+	        }
+	    }//readURL()--
+
+	    //file 양식으로 이미지를 선택(값이 변경) 되었을때 처리하는 코드
+	    $(".for-band-photo-input").change(function(){
+	        //alert(this.value); //선택한 이미지 경로 표시
+	        readURL(this);
+	    }); 
+	    
+	    
+	    
+	    
+	 });  
+
+</script>
